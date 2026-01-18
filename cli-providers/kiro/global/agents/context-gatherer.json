@@ -1,0 +1,22 @@
+{
+  "name": "context-gatherer",
+  "description": "Analyzes repository structure to identify relevant files and content sections. Efficient exploration for problem-solving.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/context-gatherer.md",
+  "tools": ["read", "grep", "glob"],
+  "allowedTools": [
+    "read",
+    "grep", 
+    "glob"
+  ],
+  "mcpServers": ["code-index"],
+  "toolsSettings": {
+    "shell": {
+      "deniedCommands": ["*"]
+    }
+  },
+  "resources": [
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "welcomeMessage": "🔍 Context Gatherer. Analyzing repository structure..."
+}
