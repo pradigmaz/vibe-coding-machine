@@ -221,7 +221,7 @@ vibe-coding-machine/
 ### Kiro
 - **Агенты:** orchestrator, architect, backend, frontend, coder, qa, reviewer, debugger, critic-ci
 - **Субагенты:** 16 специализированных субагентов
-- **Skills:** 40+ навыков
+- **Skills:** 40+ навыков (включая planning-with-files - Manus-style file-based planning)
 - **MCP:** 8 стабильных серверов
 
 ### Gemini
