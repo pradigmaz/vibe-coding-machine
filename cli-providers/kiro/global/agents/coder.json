@@ -1,0 +1,41 @@
+{
+  "name": "coder",
+  "description": "Universal developer. Implements features in any language/stack. Delegates to specialized subagents when needed.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/coder.md",
+  "includeMcpJson": true,
+  "tools": ["read", "write", "shell", "glob", "use_subagent", "@code-index", "@Context7", "@serena"],
+  "allowedTools": [
+    "read",
+    "write",
+    "shell",
+    "glob",
+    "use_subagent",
+    "subagent:backend-python",
+    "subagent:frontend-typescript",
+    "subagent:backend-opus",
+    "subagent:frontend-opus",
+    "subagent:error-detective",
+    "subagent:refactoring-specialist",
+    "subagent:optimization-expert-opus",
+    "subagent:test-engineer",
+    "@code-index/*",
+    "@Context7/*",
+    "@serena/find_symbol",
+    "@serena/find_referencing_symbols",
+    "@serena/insert_after_symbol"
+  ],
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": ["src/**", "app/**", "backend/**", "frontend/**", "components/**", "lib/**", "tests/**", ".ai/**"]
+    },
+    "shell": {
+      "allowedCommands": ["pytest", "mypy", "cargo test", "go test", "npm test", "pnpm test", "mvn test", "dotnet test", "npm run lint", "cargo clippy"],
+      "deniedCommands": ["rm -rf", "sudo", "git push"],
+      "autoAllowReadonly": true
+    }
+  },
+  "resources": [],
+  "keyboardShortcut": "ctrl+shift+c",
+  "welcomeMessage": "💻 Coder ready. Universal developer for any language/stack."
+}

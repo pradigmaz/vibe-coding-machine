@@ -1,0 +1,16 @@
+{
+  "name": "arch-reviewer",
+  "description": "Строгий ревьюер архитектуры. Проверяет соответствие кода документации и принципам SOLID/Clean Arch.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/arch-reviewer.md",
+  "tools": ["read", "grep", "glob"],
+  "allowedTools": ["read", "grep", "glob"],
+  "toolsSettings": {
+    "shell": {
+      "deniedCommands": ["*"] 
+    }
+  },
+  "resources": [],
+  "welcomeMessage": "🏛️ Архитектурный надзор. Загружаю стандарты проекта..."
+}
+

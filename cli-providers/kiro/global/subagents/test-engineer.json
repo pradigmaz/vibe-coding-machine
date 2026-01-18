@@ -1,0 +1,16 @@
+{
+  "name": "test-engineer",
+  "description": "QA Automation Engineer. Writes unit/integration tests, fixes flaky tests, and improves coverage.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/test-engineer.md",
+  "tools": ["read", "write", "shell", "grep", "glob"],
+  "allowedTools": ["read", "write", "shell", "grep", "glob"],
+  "toolsSettings": {
+    "shell": {
+      "allowedCommands": ["npm test", "jest", "pytest", "vitest", "playwright"],
+      "deniedCommands": ["rm -rf /"]
+    }
+  },
+  "resources": [],
+  "welcomeMessage": "🧪 Test Engineer ready. Let's break (and then fix) your code."
+}

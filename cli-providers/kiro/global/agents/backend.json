@@ -1,0 +1,40 @@
+{
+  "name": "backend",
+  "description": "Backend разработчик. Реализует API, services, CRUD, models. Эскалирует в backend-opus если сложно.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/backend.md",
+  "includeMcpJson": true,
+  "tools": ["read", "write", "shell", "glob", "use_subagent", "@code-index", "@postgres", "@github"],
+  "allowedTools": [
+    "read",
+    "write",
+    "shell",
+    "grep",
+    "glob",
+    "use_subagent",
+    "subagent:backend-python",
+    "subagent:backend-opus",
+    "subagent:backend-architect",
+    "subagent:error-detective",
+    "subagent:refactoring-specialist",
+    "subagent:optimization-expert-opus",
+    "@code-index/*",
+    "@postgres/execute_query",
+    "@github/search_code",
+    "@github/get_file_contents"
+  ],
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": ["backend/**", "src/**", "tests/**", ".ai/**"]
+    },
+    "shell": {
+      "allowedCommands": ["pytest", "mypy", "python", "pnpm", "alembic", "cargo test", "go test"],
+      "deniedCommands": ["rm -rf", "sudo", "git push"],
+      "autoAllowReadonly": true
+    }
+  },
+  "resources": [],
+  "hooks": {},
+  "keyboardShortcut": "ctrl+b",
+  "welcomeMessage": "Backend agent активен. Endpoint → Service → CRUD → Model."
+}

@@ -1,0 +1,16 @@
+{
+  "name": "error-detective",
+  "description": "Шерлок Холмс для багов. Анализирует логи, стектрейсы и воспроизводит сложные ошибки.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/error-detective.md",
+  "tools": ["read", "shell", "grep", "glob"],
+  "allowedTools": ["read", "shell", "grep", "glob"],
+  "toolsSettings": {
+    "shell": {
+      "allowedCommands": ["tail", "grep", "cat", "find", "journalctl", "docker logs"],
+      "deniedCommands": ["rm", "kill"]
+    }
+  },
+  "resources": [],
+  "welcomeMessage": "🕵️ Detective active. Давай логи, я найду убийцу процесса."
+}

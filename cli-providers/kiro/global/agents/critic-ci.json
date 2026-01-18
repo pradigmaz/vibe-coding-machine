@@ -1,0 +1,21 @@
+{
+  "name": "critic-ci",
+  "description": "CI/CD проверки. Запускает pytest, mypy, eslint, ruff. Блокирует если падает.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/critic-ci.md",
+  "includeMcpJson": true,
+  "tools": ["read", "shell"],
+  "allowedTools": [
+    "read",
+    "shell"
+  ],
+  "toolsSettings": {
+    "shell": {
+      "allowedCommands": ["pytest", "mypy", "eslint", "ruff", "pnpm", "npm", "tsc"],
+      "deniedCommands": ["git push", "git merge", "rm"]
+    }
+  },
+  "resources": [],
+  "keyboardShortcut": "ctrl+shift+i",
+  "welcomeMessage": "CI agent активен. Запускаю проверки..."
+}

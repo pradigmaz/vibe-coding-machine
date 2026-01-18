@@ -1,0 +1,17 @@
+{
+  "name": "performance-profiler",
+  "description": "Performance analysis specialist. Profiles applications, identifies bottlenecks, and provides optimization strategies.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/performance-profiler.md",
+  "tools": ["read", "shell", "grep", "glob"],
+  "allowedTools": ["read", "shell", "grep", "glob"],
+  "toolsSettings": {
+    "shell": {
+      "allowedCommands": ["node --prof", "clinic", "py-spy", "perf", "k6", "ab", "wrk", "psql"],
+      "deniedCommands": ["rm", "sudo"]
+    }
+  },
+  "resources": [],
+  "welcomeMessage": "📊 Performance Profiler активирован. Анализирую производительность..."
+}
+

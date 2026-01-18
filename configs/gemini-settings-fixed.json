@@ -1,0 +1,18 @@
+{
+  "temperature": 0.3,
+  "maxRetries": 1,
+  "experimental": {
+    "skills": true
+  },
+  "mcp": {
+    "autoApprove": ["read_file", "list_directory", "search_files"],
+    "timeout": 30000
+  },
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "description": "File system access for reading project files"
+    }
+  }
+}

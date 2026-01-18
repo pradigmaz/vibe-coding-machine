@@ -1,0 +1,16 @@
+{
+  "name": "code-reviewer-opus",
+  "description": "Expert code reviewer (Opus). Deep analysis of code quality, architecture, security, and best practices.",
+  "model": "claude-opus-4-5",
+  "prompt": "file://~/.kiro/prompts/code-reviewer-opus.md",
+  "tools": ["read", "grep", "glob"],
+  "allowedTools": ["read", "grep", "glob"],
+  "toolsSettings": {
+    "shell": {
+      "deniedCommands": ["*"]
+    }
+  },
+  "resources": [],
+  "welcomeMessage": "🔍 Code Reviewer Opus активирован. Провожу глубокий анализ кода..."
+}
+

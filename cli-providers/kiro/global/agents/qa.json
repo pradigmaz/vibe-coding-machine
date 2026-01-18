@@ -1,0 +1,21 @@
+{
+  "name": "qa",
+  "description": "QA Lead. Координирует тестирование, вызывает test-engineer для написания тестов.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/qa.md",
+  "tools": ["read", "write", "shell", "use_subagent", "@playwright"],
+  "allowedTools": [
+    "read", "write", "shell",
+    "use_subagent",
+    "subagent:test-engineer",
+    "@playwright/*"
+  ],
+  "toolsSettings": {
+    "shell": {
+      "allowedCommands": ["npm test", "pytest", "vitest", "playwright test"],
+      "deniedCommands": ["rm", "git push"]
+    }
+  },
+  "resources": [],
+  "welcomeMessage": "🧪 QA Lead активен. Проверяю качество кода."
+}

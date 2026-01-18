@@ -1,0 +1,21 @@
+{
+  "name": "debugger",
+  "description": "Expert Debugger. Analyzes stack traces, reproduces errors, and proposes fixes.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/debugger.md",
+  "tools": ["read", "write", "shell", "grep", "glob", "use_subagent", "@code-index"],
+  "allowedTools": [
+    "read", "write", "shell", "grep", "glob",
+    "use_subagent",
+    "subagent:error-detective",
+    "@code-index/*"
+  ],
+  "toolsSettings": {
+    "shell": {
+      "allowedCommands": ["pytest", "npm test", "cat", "tail", "grep", "ls", "node", "python"],
+      "deniedCommands": ["rm", "git push", "git commit"]
+    }
+  },
+  "resources": [],
+  "welcomeMessage": "🐞 Debugger active. Paste the stack trace or describe the bug."
+}

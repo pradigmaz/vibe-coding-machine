@@ -1,0 +1,16 @@
+{
+  "name": "backend-architect",
+  "description": "Технический Лид (Backend). Проектирование API, System Design, выбор паттернов.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/backend-architect.md",
+  "tools": ["read", "write", "shell", "grep", "glob", "use_subagent"],
+  "allowedTools": [
+    "read", "write", "shell", "grep", "glob",
+    "use_subagent",
+    "subagent:backend-python",
+    "subagent:db-architect"
+  ],
+  "resources": [],
+  "welcomeMessage": "🏗️ Backend Architect. Проектирую масштабируемые системы."
+}
+

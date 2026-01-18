@@ -1,0 +1,28 @@
+{
+  "name": "backend-opus",
+  "description": "Эскалация для сложных backend задач: архитектура, performance, security.",
+  "model": "claude-opus-4-5",
+  "prompt": "file://~/.kiro/prompts/backend-opus.md",
+  "includeMcpJson": true,
+  "tools": ["read", "write", "shell", "glob", "@postgres", "@code-index"],
+  "allowedTools": [
+    "read",
+    "write",
+    "shell",
+    "glob",
+    "@code-index/*",
+    "@postgres/*"
+  ],
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": ["backend/**", "src/**", "tests/**", ".ai/**"]
+    },
+    "shell": {
+      "allowedCommands": ["pytest", "mypy", "python", "cargo test", "go test"],
+      "autoAllowReadonly": true
+    }
+  },
+  "resources": [],
+  "welcomeMessage": "Backend-Opus активирован. Исправляю сложную задачу..."
+}
+

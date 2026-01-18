@@ -1,0 +1,25 @@
+{
+  "name": "reviewer",
+  "description": "Strict Code Reviewer. Analyzes code for security, performance, and style issues. READ-ONLY.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/reviewer.md",
+  "tools": ["read", "glob", "grep", "use_subagent"],
+  "allowedTools": [
+    "read", "glob", "grep",
+    "use_subagent",
+    "subagent:security-auditor",
+    "subagent:arch-reviewer",
+    "subagent:technical-researcher",
+    "subagent:refactoring-specialist",
+    "subagent:code-reviewer-opus",
+    "subagent:vulnerability-hunter-opus"
+  ],
+  "toolsSettings": {
+    "shell": {
+      "deniedCommands": ["*"] 
+    }
+  },
+  "resources": [],
+  "keyboardShortcut": "ctrl+shift+r",
+  "welcomeMessage": "🧐 Code Reviewer active. I will analyze your code against best practices."
+}

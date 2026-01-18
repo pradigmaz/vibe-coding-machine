@@ -1,0 +1,33 @@
+{
+  "name": "orchestrator",
+  "description": "Task coordinator. ALWAYS asks clarifying questions, creates TODO plan, delegates to agents with FULL context. Never simplifies user requests.",
+  "model": "claude-sonnet-4-5",
+  "prompt": "file://~/.kiro/prompts/orchestrator.md",
+  "includeMcpJson": true,
+  "tools": ["use_subagent", "use_agent"],
+  "allowedTools": [
+    "use_subagent",
+    "use_agent",
+    "agent:plan",
+    "agent:architect",
+    "agent:coder",
+    "agent:reviewer",
+    "agent:qa",
+    "agent:debugger",
+    "agent:critic-ci",
+    "subagent:context-gatherer",
+    "subagent:backend-architect",
+    "subagent:security-auditor",
+    "subagent:arch-reviewer",
+    "subagent:error-detective",
+    "subagent:test-engineer",
+    "subagent:technical-researcher",
+    "subagent:refactoring-specialist",
+    "subagent:performance-profiler"
+  ],
+  "toolsSettings": {},
+  "resources": [],
+  "hooks": {},
+  "keyboardShortcut": "ctrl+o",
+  "welcomeMessage": "🎯 Orchestrator готов. Задам уточняющие вопросы, создам план, делегирую агентам."
+}
