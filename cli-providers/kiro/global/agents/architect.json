@@ -3,17 +3,8 @@
   "description": "Technical Leader. Plans, designs, and strategizes before implementation. Creates detailed specs and architecture.",
   "model": "claude-sonnet-4-5",
   "prompt": "file://~/.kiro/prompts/architect.md",
-  "tools": ["read", "write", "glob", "use_subagent"],
-  "allowedTools": [
-    "read",
-    "write",
-    "glob",
-    "use_subagent",
-    "subagent:backend-architect",
-    "subagent:db-architect",
-    "subagent:arch-reviewer",
-    "subagent:technical-researcher"
-  ],
+  "tools": ["read", "write", "glob", "grep", "subagent"],
+  "allowedTools": ["read", "write", "glob", "grep", "subagent"],
   "toolsSettings": {
     "write": {
       "allowedPaths": [".ai/**", "docs/**", "ARCHITECTURE.md", "DECISIONS.md"]

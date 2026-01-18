@@ -4,15 +4,15 @@
   "model": "claude-opus-4-5",
   "prompt": "file://~/.kiro/prompts/backend-opus.md",
   "includeMcpJson": true,
-  "tools": ["read", "write", "shell", "glob", "@postgres", "@code-index"],
+  "tools": ["read", "write", "shell", "glob", "grep"],
   "allowedTools": [
     "read",
     "write",
     "shell",
     "glob",
-    "@code-index/*",
-    "@postgres/*"
+    "grep"
   ],
+  "mcpServers": ["pg-aiguide", "code-index"],
   "toolsSettings": {
     "write": {
       "allowedPaths": ["backend/**", "src/**", "tests/**", ".ai/**"]

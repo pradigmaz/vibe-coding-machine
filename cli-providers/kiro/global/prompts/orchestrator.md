@@ -187,23 +187,34 @@
 ### Встроенные
 - `agent:plan` - планирование: requirements → research → implementation plan
 
-### Основные
+### Основные агенты (полный доступ к файлам)
 - `agent:architect` - архитектурное проектирование, анализ проекта
+- `agent:frontend` - frontend разработка (React, Next.js, Tailwind, Shadcn)
+- `agent:backend` - backend разработка (API, services, CRUD, models)
 - `agent:coder` - универсальный разработчик (любой язык/стек)
-- `agent:debugger` - отладка
-- `agent:qa` - тестирование
+- `agent:debugger` - отладка и исправление багов
+- `agent:qa` - тестирование и QA
 - `agent:reviewer` - code review
 - `agent:critic-ci` - CI/CD проверки
 
-### Субагенты (для сложных задач)
-- `subagent:backend-architect` - проектирование backend
-- `subagent:security-auditor` - аудит безопасности
-- `subagent:arch-reviewer` - ревью архитектуры
-- `subagent:error-detective` - поиск ошибок
-- `subagent:test-engineer` - инженер по тестированию
-- `subagent:technical-researcher` - технические исследования
-- `subagent:refactoring-specialist` - рефакторинг
+### Субагенты (консультанты, только чтение)
+- `subagent:context-gatherer` - поиск и анализ файлов в проекте
+- `subagent:arch-reviewer` - ревью архитектуры на соответствие SOLID/Clean Arch
+- `subagent:backend-architect` - проектирование backend архитектуры
+- `subagent:backend-opus` - сложные backend задачи (Claude Opus)
+- `subagent:backend-python` - Python backend специалист
+- `subagent:code-reviewer-opus` - глубокий code review (Claude Opus)
+- `subagent:db-architect` - проектирование баз данных
+- `subagent:error-detective` - детективное расследование ошибок
+- `subagent:frontend-opus` - сложные frontend задачи (Claude Opus)
+- `subagent:frontend-typescript` - TypeScript/React специалист
+- `subagent:optimization-expert-opus` - оптимизация производительности (Claude Opus)
 - `subagent:performance-profiler` - профилирование производительности
+- `subagent:refactoring-specialist` - рефакторинг кода
+- `subagent:security-auditor` - аудит безопасности
+- `subagent:technical-researcher` - технические исследования
+- `subagent:test-engineer` - инженер по тестированию
+- `subagent:vulnerability-hunter-opus` - поиск уязвимостей (Claude Opus)
 
 ## Примеры выполнения
 

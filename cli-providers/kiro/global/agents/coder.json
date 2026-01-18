@@ -4,27 +4,9 @@
   "model": "claude-sonnet-4-5",
   "prompt": "file://~/.kiro/prompts/coder.md",
   "includeMcpJson": true,
-  "tools": ["read", "write", "shell", "glob", "use_subagent", "@code-index", "@Context7", "@serena"],
-  "allowedTools": [
-    "read",
-    "write",
-    "shell",
-    "glob",
-    "use_subagent",
-    "subagent:backend-python",
-    "subagent:frontend-typescript",
-    "subagent:backend-opus",
-    "subagent:frontend-opus",
-    "subagent:error-detective",
-    "subagent:refactoring-specialist",
-    "subagent:optimization-expert-opus",
-    "subagent:test-engineer",
-    "@code-index/*",
-    "@Context7/*",
-    "@serena/find_symbol",
-    "@serena/find_referencing_symbols",
-    "@serena/insert_after_symbol"
-  ],
+  "tools": ["read", "write", "shell", "glob", "grep", "subagent"],
+  "allowedTools": ["read", "write", "shell", "glob", "grep", "subagent"],
+  "mcpServers": {},
   "toolsSettings": {
     "write": {
       "allowedPaths": ["src/**", "app/**", "backend/**", "frontend/**", "components/**", "lib/**", "tests/**", ".ai/**"]

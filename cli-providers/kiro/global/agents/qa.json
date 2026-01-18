@@ -3,13 +3,9 @@
   "description": "QA Lead. Координирует тестирование, вызывает test-engineer для написания тестов.",
   "model": "claude-sonnet-4-5",
   "prompt": "file://~/.kiro/prompts/qa.md",
-  "tools": ["read", "write", "shell", "use_subagent", "@playwright"],
-  "allowedTools": [
-    "read", "write", "shell",
-    "use_subagent",
-    "subagent:test-engineer",
-    "@playwright/*"
-  ],
+  "tools": ["read", "write", "shell", "grep", "glob", "subagent"],
+  "allowedTools": ["read", "write", "shell", "grep", "glob", "subagent"],
+  "mcpServers": {},
   "toolsSettings": {
     "shell": {
       "allowedCommands": ["npm test", "pytest", "vitest", "playwright test"],

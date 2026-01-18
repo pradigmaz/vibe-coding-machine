@@ -4,25 +4,9 @@
   "model": "claude-sonnet-4-5",
   "prompt": "file://~/.kiro/prompts/backend.md",
   "includeMcpJson": true,
-  "tools": ["read", "write", "shell", "glob", "use_subagent", "@code-index", "@postgres", "@github"],
-  "allowedTools": [
-    "read",
-    "write",
-    "shell",
-    "grep",
-    "glob",
-    "use_subagent",
-    "subagent:backend-python",
-    "subagent:backend-opus",
-    "subagent:backend-architect",
-    "subagent:error-detective",
-    "subagent:refactoring-specialist",
-    "subagent:optimization-expert-opus",
-    "@code-index/*",
-    "@postgres/execute_query",
-    "@github/search_code",
-    "@github/get_file_contents"
-  ],
+  "tools": ["read", "write", "shell", "glob", "grep", "subagent"],
+  "allowedTools": ["read", "write", "shell", "glob", "grep", "subagent"],
+  "mcpServers": {},
   "toolsSettings": {
     "write": {
       "allowedPaths": ["backend/**", "src/**", "tests/**", ".ai/**"]

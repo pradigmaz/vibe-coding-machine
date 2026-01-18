@@ -3,13 +3,9 @@
   "description": "Expert Debugger. Analyzes stack traces, reproduces errors, and proposes fixes.",
   "model": "claude-opus-4-5",
   "prompt": "file://~/.kiro/prompts/debugger.md",
-  "tools": ["read", "write", "shell", "grep", "glob", "use_subagent", "@code-index"],
-  "allowedTools": [
-    "read", "write", "shell", "grep", "glob",
-    "use_subagent",
-    "subagent:error-detective",
-    "@code-index/*"
-  ],
+  "tools": ["read", "write", "shell", "grep", "glob", "subagent"],
+  "allowedTools": ["read", "write", "shell", "grep", "glob", "subagent"],
+  "mcpServers": {},
   "toolsSettings": {
     "shell": {
       "allowedCommands": ["pytest", "npm test", "cat", "tail", "grep", "ls", "node", "python"],

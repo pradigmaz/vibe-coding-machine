@@ -3,8 +3,8 @@
   "description": "Security Expert. Audits code for vulnerabilities (OWASP), checks secrets, and validates config.",
   "model": "claude-sonnet-4-5",
   "prompt": "file://~/.kiro/prompts/security-auditor.md",
-  "tools": ["read", "shell", "grep", "glob", "use_subagent"],
-  "allowedTools": ["read", "shell", "grep", "glob", "use_subagent", "subagent:vulnerability-hunter-opus"],
+  "tools": ["read", "shell", "grep", "glob", "subagent"],
+  "allowedTools": ["read", "shell", "grep", "glob", "subagent"],
   "toolsSettings": {
     "shell": {
       "allowedCommands": ["npm audit", "pip-audit", "trivy", "semgrep", "ls -la"],
