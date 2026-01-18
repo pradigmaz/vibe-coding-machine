@@ -21,7 +21,8 @@
       "autoApprove": ["ref_search_documentation", "ref_read_url"]
     },
     "pg-aiguide": {
-      "url": "https://mcp.tigerdata.com/docs",
+      "command": "uvx",
+      "args": ["pg-aiguide"],
       "disabled": false,
       "autoApprove": []
     },

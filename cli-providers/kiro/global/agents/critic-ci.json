@@ -2,7 +2,6 @@
   "name": "critic-ci",
   "description": "CI/CD проверки. Запускает pytest, mypy, eslint, ruff. Блокирует если падает.",
   "model": "claude-opus-4-5",
-  "fallbackModel": "claude-sonnet-4-5",
   "prompt": "file://~/.kiro/prompts/critic-ci.md",
   "includeMcpJson": true,
   "tools": ["read", "shell"],

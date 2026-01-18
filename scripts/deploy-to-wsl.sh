@@ -24,7 +24,7 @@ log_error() {
 }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_DIR="$SCRIPT_DIR"
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
 deploy_qwen() {
     log_info "Развертывание конфигурации Qwen CLI..."
@@ -39,10 +39,12 @@ deploy_qwen() {
     
     mkdir -p "$TARGET_DIR"
     
-    [ -d "$SOURCE_DIR/agents" ] && cp -r "$SOURCE_DIR/agents" "$TARGET_DIR/"
+    [ -d "$SOURCE_DIR/examples" ] && cp -r "$SOURCE_DIR/examples" "$TARGET_DIR/"
     [ -d "$SOURCE_DIR/mcp" ] && cp -r "$SOURCE_DIR/mcp" "$TARGET_DIR/"
     [ -d "$SOURCE_DIR/skills" ] && cp -r "$SOURCE_DIR/skills" "$TARGET_DIR/"
     [ -d "$SOURCE_DIR/subagents" ] && cp -r "$SOURCE_DIR/subagents" "$TARGET_DIR/"
+    [ -f "$SOURCE_DIR/QWEN.md" ] && cp "$SOURCE_DIR/QWEN.md" "$TARGET_DIR/"
+    [ -f "$SOURCE_DIR/STYLE-GUIDE.md" ] && cp "$SOURCE_DIR/STYLE-GUIDE.md" "$TARGET_DIR/"
     [ -f "$SOURCE_DIR/settings.json" ] && cp "$SOURCE_DIR/settings.json" "$TARGET_DIR/"
     
     log_info "Qwen CLI успешно развернут в $TARGET_DIR"
@@ -83,9 +85,11 @@ deploy_kiro() {
     mkdir -p "$TARGET_DIR"
     
     [ -d "$SOURCE_DIR/agents" ] && cp -r "$SOURCE_DIR/agents" "$TARGET_DIR/"
+    [ -d "$SOURCE_DIR/hooks" ] && cp -r "$SOURCE_DIR/hooks" "$TARGET_DIR/"
     [ -d "$SOURCE_DIR/prompts" ] && cp -r "$SOURCE_DIR/prompts" "$TARGET_DIR/"
     [ -d "$SOURCE_DIR/settings" ] && cp -r "$SOURCE_DIR/settings" "$TARGET_DIR/"
     [ -d "$SOURCE_DIR/skills" ] && cp -r "$SOURCE_DIR/skills" "$TARGET_DIR/"
+    [ -d "$SOURCE_DIR/steering" ] && cp -r "$SOURCE_DIR/steering" "$TARGET_DIR/"
     [ -d "$SOURCE_DIR/subagents" ] && cp -r "$SOURCE_DIR/subagents" "$TARGET_DIR/"
     
     if [ -f "$REPO_DIR/mcp-working-config.json" ]; then

@@ -22,8 +22,9 @@ log_error() {
 }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
 CONFIG_FILE="$HOME/.kiro/settings/mcp.json"
-STABLE_CONFIG="$SCRIPT_DIR/mcp-stable-only.json"
+STABLE_CONFIG="$REPO_DIR/configs/mcp-stable-only.json"
 
 echo "========================================="
 echo "  Применение стабильной MCP конфигурации"
