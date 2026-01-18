@@ -34,6 +34,13 @@ Qwen → draft spec → Gemini → review → Kiro → production code
 - npm или pnpm
 - Git
 
+### Для Windows (WSL2)
+- **WSL2** установлен и настроен
+- **VSCode** с расширением **Remote - WSL**
+  - Установи: `code --install-extension ms-vscode-remote.remote-wsl`
+  - Или через VSCode: Extensions → "Remote - WSL"
+  - Это нужно для корректной работы CLI инструментов в WSL окружении
+
 ### Опционально (для MCP серверов)
 - **UV/UVX** - Python package manager (устанавливается автоматически)
   - Нужен для: code-index, Context7, Ref, pg-aiguide
@@ -43,6 +50,35 @@ Qwen → draft spec → Gemini → review → Kiro → production code
 ---
 
 ## Быстрый старт
+
+### 0. Настройка WSL (только для Windows)
+
+Если используешь Windows:
+
+1. **Установи WSL2:**
+```powershell
+wsl --install
+```
+
+2. **Установи VSCode расширение Remote - WSL:**
+```bash
+# Из Windows PowerShell
+code --install-extension ms-vscode-remote.remote-wsl
+```
+
+Или через VSCode:
+- Открой Extensions (Ctrl+Shift+X)
+- Найди "Remote - WSL"
+- Установи от Microsoft
+
+3. **Открой проект в WSL:**
+```bash
+# В WSL терминале
+cd /path/to/vibe-coding-machine
+code .
+```
+
+VSCode автоматически подключится к WSL окружению.
 
 ### 1. Клонируй репозиторий
 ```bash
@@ -258,6 +294,11 @@ kiro agent frontend "Исправь проблемы из .ai/review.md"
 - ⚠️ OpenCode может генерировать неоптимальный код
 - ⚠️ Gemini CLI требует ручной настройки API ключей
 - ⚠️ Работает только на Linux/WSL
+
+### Windows + WSL
+- **Обязательно** используй VSCode с расширением Remote - WSL
+- Без расширения CLI инструменты не смогут корректно работать с файлами
+- Всегда открывай проект через `code .` из WSL терминала
 
 ### Workarounds
 - Используйте стабильную MCP конфигурацию (8 серверов)
