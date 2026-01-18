@@ -2,6 +2,7 @@
   "name": "db-architect",
   "description": "Эксперт по базам данных (PostgreSQL/MySQL). Проектирование схем, индексы, SQL-оптимизация.",
   "model": "claude-opus-4-5",
+  "fallbackModel": "claude-sonnet-4-5",
   "prompt": "file://~/.kiro/prompts/db-architect.md",
   "tools": ["read", "write", "shell", "grep", "glob"],
   "allowedTools": ["read", "write", "shell", "grep", "glob"],

@@ -2,6 +2,7 @@
   "name": "backend-opus",
   "description": "Эскалация для сложных backend задач: архитектура, performance, security.",
   "model": "claude-opus-4-5",
+  "fallbackModel": "claude-sonnet-4-5",
   "prompt": "file://~/.kiro/prompts/backend-opus.md",
   "includeMcpJson": true,
   "tools": ["read", "write", "shell", "glob", "@postgres", "@code-index"],
