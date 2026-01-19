@@ -1,0 +1,312 @@
+{
+  "model": "opencode/glm-4.7-free",
+  "theme": "opencode",
+  "mcp": {
+    "code-index": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "--python",
+        "3.12",
+        "code-index-mcp"
+      ]
+    },
+    "memory": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
+    },
+    "sequential-thinking": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "Context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp",
+        "--api-key",
+        "${CONTEXT7_API_KEY}"
+      ]
+    },
+    "Ref": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/ref-mcp"
+      ],
+      "environment": {
+        "REF_API_KEY": "${REF_API_KEY}"
+      }
+    },
+    "pg-aiguide": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@tigerdata/pg-aiguide-mcp"
+      ]
+    },
+    "refactor-mcp": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "refactor-mcp"
+      ]
+    },
+    "shadcn": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "shadcn@latest",
+        "mcp"
+      ]
+    }
+  },
+  "agent": {
+    "orchestrator": {
+      "description": "Task coordinator. Asks questions, creates plan, delegates to agents.",
+      "model": "opencode/minimax-m2.1-free",
+      "prompt": "{file:./agents/orchestrator.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "skill": true,
+        "task": true
+      },
+      "permissions": {
+        "task": {
+          "*": "allow"
+        }
+      }
+    },
+    "backend": {
+      "description": "Backend developer. Implements API, services, CRUD, models.",
+      "model": "opencode/glm-4.7-free",
+      "prompt": "{file:./agents/backend.md}",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "skill": true
+      }
+    },
+    "frontend": {
+      "description": "Frontend specialist. Builds UI with Next.js, React, Tailwind.",
+      "model": "opencode/glm-4.7-free",
+      "prompt": "{file:./agents/frontend.md}",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "skill": true
+      }
+    },
+    "coder": {
+      "description": "General purpose coder. Implements features from specs.",
+      "model": "opencode/glm-4.7-free",
+      "prompt": "{file:./agents/coder.md}",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "skill": true
+      }
+    },
+    "reviewer": {
+      "description": "Code reviewer. Analyzes for security, performance, style. READ-ONLY.",
+      "model": "opencode/minimax-m2.1-free",
+      "prompt": "{file:./agents/reviewer.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "read": true,
+        "glob": true,
+        "grep": true,
+        "skill": true
+      }
+    },
+    "debugger": {
+      "description": "Debugging specialist. Analyzes errors, suggests fixes.",
+      "model": "opencode/glm-4.7-free",
+      "prompt": "{file:./agents/debugger.md}",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "skill": true
+      }
+    },
+    "architect": {
+      "description": "System architect. Designs architecture, reviews specs.",
+      "model": "opencode/minimax-m2.1-free",
+      "prompt": "{file:./agents/architect.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "read": true,
+        "skill": true
+      }
+    },
+    "project-analyzer": {
+      "description": "Analyzes existing project before adding features. Use: @project-analyzer",
+      "mode": "subagent",
+      "model": "opencode/glm-4.7-free",
+      "prompt": "{file:./agents/project-analyzer.md}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "write": true,
+        "edit": false,
+        "bash": false,
+        "skill": true
+      }
+    },
+    "implementation-planner": {
+      "description": "Creates detailed implementation plan with checkpoints. Use: @implementation-planner",
+      "mode": "subagent",
+      "model": "opencode/minimax-m2.1-free",
+      "prompt": "{file:./agents/implementation-planner.md}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "write": true,
+        "edit": false,
+        "bash": false,
+        "skill": true
+      }
+    },
+    "self-reviewer": {
+      "description": "Reviews generated draft code for errors. Use: @self-reviewer",
+      "mode": "subagent",
+      "model": "opencode/minimax-m2.1-free",
+      "prompt": "{file:./agents/self-reviewer.md}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "write": true,
+        "edit": false,
+        "bash": true,
+        "skill": true
+      },
+      "permissions": {
+        "bash": {
+          "*": "deny",
+          "npm run lint": "allow",
+          "npm run type-check": "allow",
+          "pytest --collect-only": "allow",
+          "go vet": "allow"
+        }
+      }
+    },
+    "db-architect": {
+      "description": "Database expert (PostgreSQL/MySQL). Schema design, indexes, SQL optimization. Use: @db-architect",
+      "mode": "subagent",
+      "model": "opencode/glm-4.7-free",
+      "tools": {
+        "read": true,
+        "write": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "skill": true
+      },
+      "permissions": {
+        "bash": {
+          "*": "deny",
+          "psql": "allow",
+          "sqlite3": "allow",
+          "prisma": "allow"
+        }
+      }
+    },
+    "security-auditor": {
+      "description": "Security expert. Audits code for vulnerabilities (OWASP), checks secrets. Use: @security-auditor",
+      "mode": "subagent",
+      "model": "opencode/minimax-m2.1-free",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "skill": true
+      },
+      "permissions": {
+        "bash": {
+          "*": "deny",
+          "npm audit": "allow",
+          "pip-audit": "allow",
+          "trivy": "allow"
+        }
+      }
+    },
+    "test-engineer": {
+      "description": "QA automation. Writes unit/integration tests, improves coverage. Use: @test-engineer",
+      "mode": "subagent",
+      "model": "opencode/glm-4.7-free",
+      "tools": {
+        "read": true,
+        "write": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "skill": true
+      },
+      "permissions": {
+        "bash": {
+          "*": "deny",
+          "npm test": "allow",
+          "jest": "allow",
+          "pytest": "allow",
+          "vitest": "allow"
+        }
+      }
+    },
+    "refactoring-specialist": {
+      "description": "Code refactoring expert. Reduces complexity, applies design patterns. Use: @refactoring-specialist",
+      "mode": "subagent",
+      "model": "opencode/glm-4.7-free",
+      "tools": {
+        "read": true,
+        "write": true,
+        "grep": true,
+        "glob": true,
+        "skill": true
+      }
+    },
+    "performance-profiler": {
+      "description": "Performance analysis. Identifies bottlenecks, optimization strategies. Use: @performance-profiler",
+      "mode": "subagent",
+      "model": "opencode/glm-4.7-free",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "skill": true
+      },
+      "permissions": {
+        "bash": {
+          "*": "deny",
+          "node --prof": "allow",
+          "py-spy": "allow"
+        }
+      }
+    }
+  }
+}
