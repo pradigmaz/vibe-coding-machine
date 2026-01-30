@@ -56,7 +56,21 @@ deploy_kiro() {
     log_step "Развертывание Kiro..."
     
     local src="$ROOT_DIR/cli-providers/kiro/global"
-    local dest="$HOME/.kiro"
+    
+    # Определяем целевую директорию
+    # Если задана KIRO_HOME - используем её
+    # Иначе если есть /home/zaikana - используем её (VPS)
+    # Иначе $HOME/.kiro (локально)
+    local dest
+    if [ -n "$KIRO_HOME" ]; then
+        dest="$KIRO_HOME"
+    elif [ -d "/home/zaikana" ]; then
+        dest="/home/zaikana/.kiro"
+    else
+        dest="$HOME/.kiro"
+    fi
+    
+    log_info "Целевая директория: $dest"
     
     mkdir -p "$dest/settings"
     mkdir -p "$dest/prompts"
@@ -82,6 +96,11 @@ deploy_kiro() {
     # Копируем AGENTS.md
     cp -f "$src/AGENTS.md" "$dest/" 2>/dev/null || true
     
+    # Фиксим права если деплоим не в свою home
+    if [ -d "/home/zaikana" ] && [ "$dest" = "/home/zaikana/.kiro" ]; then
+        chown -R zaikana:zaikana "$dest" 2>/dev/null || true
+    fi
+    
     log_info "Kiro развернут в $dest"
 }
 
@@ -95,7 +114,13 @@ count_files() {
     
     case $provider in
         opencode) base_dir="$HOME/.config/opencode" ;;
-        kiro) base_dir="$HOME/.kiro" ;;
+        kiro) 
+            if [ -d "/home/zaikana/.kiro" ]; then
+                base_dir="/home/zaikana/.kiro"
+            else
+                base_dir="$HOME/.kiro"
+            fi
+            ;;
         *) return ;;
     esac
     
