@@ -93,61 +93,11 @@ check_dependencies() {
 ################################################################################
 
 deploy_opencode() {
-    log_step "Развертывание OpenCode..."
-    
-    local src="$SCRIPT_DIR/cli-providers/opencode/global"
-    local dest="$HOME/.config/opencode"
-    
-    mkdir -p "$dest"
-    
-    # Основные файлы
-    for f in opencode.json AGENTS.md CODING_RULES.md SUBAGENT_RULES.md; do
-        [ -f "$src/$f" ] && cp -f "$src/$f" "$dest/"
-    done
-    
-    # Директории
-    for dir in agents skills docs contexts command plugin; do
-        if [ -d "$src/$dir" ]; then
-            rm -rf "$dest/$dir"
-            cp -r "$src/$dir" "$dest/"
-        fi
-    done
-    
-    # Подсчет
-    local agents=$(find "$dest/agents" -name "*.md" -type f 2>/dev/null | wc -l)
-    local skills=$(find "$dest/skills" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
-    
-    log_info "OpenCode: $dest (агенты: $agents, навыки: $skills)"
+    "$SCRIPT_DIR/scripts/deploy.sh" opencode
 }
 
 deploy_kiro() {
-    log_step "Развертывание Kiro..."
-    
-    local src="$SCRIPT_DIR/cli-providers/kiro/global"
-    local dest="$HOME/.kiro"
-    
-    mkdir -p "$dest/settings"
-    
-    # Settings
-    [ -d "$src/settings" ] && cp -f "$src/settings/"*.json "$dest/settings/" 2>/dev/null
-    
-    # Директории
-    for dir in agents prompts skills docs; do
-        if [ -d "$src/$dir" ]; then
-            rm -rf "$dest/$dir"
-            cp -r "$src/$dir" "$dest/"
-        fi
-    done
-    
-    # AGENTS.md
-    [ -f "$src/AGENTS.md" ] && cp -f "$src/AGENTS.md" "$dest/"
-    
-    # Подсчет
-    local agents=$(find "$dest/agents" -name "*.json" -type f 2>/dev/null | wc -l)
-    local prompts=$(find "$dest/prompts" -name "*.md" -type f 2>/dev/null | wc -l)
-    local skills=$(find "$dest/skills" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
-    
-    log_info "Kiro: $dest (агенты: $agents, промпты: $prompts, навыки: $skills)"
+    "$SCRIPT_DIR/scripts/deploy.sh" kiro
 }
 
 ################################################################################
