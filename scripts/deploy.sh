@@ -58,17 +58,8 @@ deploy_kiro() {
     local src="$ROOT_DIR/cli-providers/kiro/global"
     
     # Определяем целевую директорию
-    # Если задана KIRO_HOME - используем её
-    # Иначе если есть /home/zaikana - используем её (VPS)
-    # Иначе $HOME/.kiro (локально)
-    local dest
-    if [ -n "$KIRO_HOME" ]; then
-        dest="$KIRO_HOME"
-    elif [ -d "/home/zaikana" ]; then
-        dest="/home/zaikana/.kiro"
-    else
-        dest="$HOME/.kiro"
-    fi
+    # KIRO_HOME > $HOME/.kiro
+    local dest="${KIRO_HOME:-$HOME/.kiro}"
     
     log_info "Целевая директория: $dest"
     
@@ -102,9 +93,10 @@ deploy_kiro() {
     # Копируем AGENTS.md
     cp -f "$src/AGENTS.md" "$dest/" 2>/dev/null || true
     
-    # Фиксим права если деплоим не в свою home
-    if [ -d "/home/zaikana" ] && [ "$dest" = "/home/zaikana/.kiro" ]; then
-        chown -R zaikana:zaikana "$dest" 2>/dev/null || true
+    # Фиксим права если задан KIRO_HOME и он не в нашем home
+    if [ -n "$KIRO_HOME" ] && [ "$dest" != "$HOME/.kiro" ]; then
+        local owner=$(stat -c '%U' "$(dirname "$dest")" 2>/dev/null)
+        [ -n "$owner" ] && chown -R "$owner:$owner" "$dest" 2>/dev/null || true
     fi
     
     log_info "Kiro развернут в $dest"
@@ -120,13 +112,7 @@ count_files() {
     
     case $provider in
         opencode) base_dir="$HOME/.config/opencode" ;;
-        kiro) 
-            if [ -d "/home/zaikana/.kiro" ]; then
-                base_dir="/home/zaikana/.kiro"
-            else
-                base_dir="$HOME/.kiro"
-            fi
-            ;;
+        kiro) base_dir="${KIRO_HOME:-$HOME/.kiro}" ;;
         *) return ;;
     esac
     
