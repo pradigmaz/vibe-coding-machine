@@ -1,0 +1,27 @@
+{
+  "name": "code-reviewer",
+  "description": "Code quality reviewer",
+  "prompt": "file:///home/zaikana/.kiro/prompts/code-reviewer.md",
+  "tools": ["read"],
+  "allowedTools": ["read"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-opus-4.5",
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "src/**",
+        "**/*.ts",
+        "**/*.js",
+        "**/*.py",
+        "**/*.go",
+        "**/*.rs"
+      ]
+    }
+  },
+  "welcomeMessage": "Code quality reviewer Ready.",
+  "includeMcpJson": true
+}

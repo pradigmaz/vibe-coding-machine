@@ -1,3 +1,7 @@
+---
+name: docs-review
+description: Review documentation для compliance с style guide. Используется reviewer агентами для reviewing PRs, files, diffs с documentation markdown.
+---
 # Documentation Review Skill
 
 ## Назначение

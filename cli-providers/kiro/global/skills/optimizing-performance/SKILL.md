@@ -1,3 +1,7 @@
+---
+name: optimizing-performance
+description: Performance optimization для frontend, backend, database. Используется всеми агентами для диагностики slowness, улучшения load times, оптими...
+---
 # Optimizing Performance Skill
 
 ## Назначение

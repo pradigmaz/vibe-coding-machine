@@ -1,0 +1,31 @@
+{
+  "name": "documentarist",
+  "description": "Memory keeper. Updates .ai/memory/ with project context, architectural decisions, task history. ONLY agent that writes to memory.",
+  "prompt": "file:///home/zaikana/.kiro/prompts/documentarist.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-haiku-4.5",
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "src/**",
+        "**/*.ts",
+        "**/*.js",
+        "**/*.py",
+        "**/*.go",
+        "**/*.rs"
+      ]
+    }
+  },
+  "welcomeMessage": "Memory keeper. Updates .ai/memory/ with project context, architectural decisions, task history. ONLY agent that writes to memory. Ready.",
+  "includeMcpJson": true
+}

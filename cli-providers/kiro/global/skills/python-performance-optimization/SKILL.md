@@ -1,3 +1,7 @@
+---
+name: python-performance-optimization
+description: Profile и optimize Python code. Используется backend агентами для debugging slow code, оптимизации bottlenecks, улучшения performance.
+---
 # Python Performance Optimization Skill
 
 ## Назначение

@@ -1,3 +1,7 @@
+---
+name: concept-workflow
+description: End-to-end workflow для создания complete concept documentation. Используется documentation агентами для orchestrating всех skills от research до final rev...
+---
 # Concept Workflow Skill
 
 ## Назначение

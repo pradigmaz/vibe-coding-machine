@@ -1,0 +1,15 @@
+{
+  "name": "code-archaeologist",
+  "description": "Context gatherer. Scans project, flags files >300 lines, monoliths, spaghetti code, finds documentation. READ-ONLY analyzer.",
+  "prompt": "file:///home/zaikana/.kiro/prompts/code-archaeologist.md",
+  "tools": ["read"],
+  "allowedTools": ["read"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-haiku-4.5",
+  "welcomeMessage": "Context gatherer. Scans project, flags files >300 lines, monoliths, spaghetti code, finds documentation. READ-ONLY analyzer. Ready.",
+  "includeMcpJson": true
+}

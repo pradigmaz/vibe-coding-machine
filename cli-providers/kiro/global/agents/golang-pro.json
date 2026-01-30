@@ -1,0 +1,19 @@
+{
+  "name": "golang-pro",
+  "description": "Go language expert",
+  "prompt": "file:///home/zaikana/.kiro/prompts/golang-pro.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "welcomeMessage": "Go language expert Ready.",
+  "includeMcpJson": true
+}

@@ -1,0 +1,19 @@
+{
+  "name": "python-pro",
+  "description": "Python language expert",
+  "prompt": "file:///home/zaikana/.kiro/prompts/python-pro.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "welcomeMessage": "Python language expert Ready.",
+  "includeMcpJson": true
+}

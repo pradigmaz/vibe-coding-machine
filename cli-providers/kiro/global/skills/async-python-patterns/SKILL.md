@@ -1,3 +1,7 @@
+---
+name: async-python-patterns
+description: Python asyncio и async/await patterns. Используется backend агентами для создания асинхронных API, concurrent систем, I/O-bound приложений.
+---
 # Async Python Patterns Skill
 
 ## Назначение

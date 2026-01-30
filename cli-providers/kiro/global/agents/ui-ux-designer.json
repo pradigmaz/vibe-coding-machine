@@ -1,0 +1,31 @@
+{
+  "name": "ui-ux-designer",
+  "description": "UI/UX design and frontend patterns. Uses shadcn MCP.",
+  "prompt": "file:///home/zaikana/.kiro/prompts/ui-ux-designer.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "src/**",
+        "**/*.ts",
+        "**/*.js",
+        "**/*.py",
+        "**/*.go",
+        "**/*.rs"
+      ]
+    }
+  },
+  "welcomeMessage": "UI/UX design and frontend patterns. Uses shadcn MCP. Ready.",
+  "includeMcpJson": true
+}

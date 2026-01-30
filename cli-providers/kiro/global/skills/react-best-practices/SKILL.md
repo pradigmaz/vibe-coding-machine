@@ -1,3 +1,7 @@
+---
+name: react-best-practices
+description: React и Next.js performance optimization. Используется frontend агентами для оптимизации производительности, устранения waterfalls и ...
+---
 # React Best Practices Skill
 
 ## Назначение

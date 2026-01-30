@@ -1,0 +1,31 @@
+{
+  "name": "frontend-developer",
+  "description": "Frontend development specialist. Generates frontend code in .ai/generated-code/.",
+  "prompt": "file:///home/zaikana/.kiro/prompts/frontend-developer.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "src/**",
+        "**/*.ts",
+        "**/*.js",
+        "**/*.py",
+        "**/*.go",
+        "**/*.rs"
+      ]
+    }
+  },
+  "welcomeMessage": "Frontend development specialist. Generates frontend code in .ai/generated-code/. Ready.",
+  "includeMcpJson": true
+}

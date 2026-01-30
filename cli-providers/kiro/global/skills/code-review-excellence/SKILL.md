@@ -1,3 +1,7 @@
+---
+name: code-review-excellence
+description: Эффективные практики code review для конструктивного feedback, раннего обнаружения багов и обмена знаниями. Применя...
+---
 # Code Review Excellence
 
 ## Назначение

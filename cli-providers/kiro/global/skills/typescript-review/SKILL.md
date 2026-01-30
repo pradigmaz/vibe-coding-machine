@@ -1,3 +1,7 @@
+---
+name: typescript-review
+description: Review TypeScript и JavaScript кода на соответствие стандартам, стилю и качеству. Применяется при review pull requests или diffs с TypeS...
+---
 # TypeScript Code Review
 
 Review TypeScript и JavaScript кода на соответствие стандартам, стилю и качеству. Применяется при review pull requests или diffs с TypeScript/JavaScript кодом.

@@ -1,3 +1,7 @@
+---
+name: microservices-patterns
+description: Проектирование микросервисных архитектур с правильными границами сервисов, event-driven коммуникацией и паттер...
+---
 # Microservices Patterns
 
 ## Назначение

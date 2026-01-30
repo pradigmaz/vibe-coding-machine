@@ -1,3 +1,7 @@
+---
+name: designing-apis
+description: Дизайн REST и GraphQL APIs включая endpoints, error handling, versioning и documentation. Используется backend агентами при создании APIs.
+---
 # Designing APIs Skill
 
 ## Назначение

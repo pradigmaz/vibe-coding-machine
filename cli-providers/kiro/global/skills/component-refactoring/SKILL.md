@@ -1,3 +1,7 @@
+---
+name: component-refactoring
+description: Рефакторинг сложных React компонентов. Используется frontend агентами когда complexity > 50 или lineCount > 300.
+---
 # Component Refactoring Skill
 
 ## Назначение

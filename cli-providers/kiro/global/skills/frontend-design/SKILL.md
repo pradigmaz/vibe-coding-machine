@@ -1,3 +1,7 @@
+---
+name: frontend-design
+description: Create distinctive, production-grade frontend interfaces. Используется frontend агентами для building web components, pages, applications с high design quality.
+---
 # Frontend Design Skill
 
 ## Назначение

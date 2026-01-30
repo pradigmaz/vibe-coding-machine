@@ -1,17 +1,31 @@
 {
   "name": "debugger",
-  "description": "Expert Debugger. Analyzes stack traces, reproduces errors, and proposes fixes.",
-  "model": "claude-opus-4-5",
-  "prompt": "file://~/.kiro/prompts/debugger.md",
-  "tools": ["read", "write", "shell", "grep", "glob", "subagent"],
-  "allowedTools": ["read", "write", "shell", "grep", "glob", "subagent"],
-  "mcpServers": {},
+  "description": "Bug investigation and fixing",
+  "prompt": "file:///home/zaikana/.kiro/prompts/debugger.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-opus-4.5",
   "toolsSettings": {
-    "shell": {
-      "allowedCommands": ["pytest", "npm test", "cat", "tail", "grep", "ls", "node", "python"],
-      "deniedCommands": ["rm", "git push", "git commit"]
+    "write": {
+      "allowedPaths": [
+        "src/**",
+        "**/*.ts",
+        "**/*.js",
+        "**/*.py",
+        "**/*.go",
+        "**/*.rs"
+      ]
     }
   },
-  "resources": [],
-  "welcomeMessage": "🐞 Debugger active. Paste the stack trace or describe the bug."
+  "welcomeMessage": "Bug investigation and fixing Ready.",
+  "includeMcpJson": true
 }

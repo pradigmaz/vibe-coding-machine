@@ -1,3 +1,7 @@
+---
+name: file-sizes
+description: Ограничения на размеры файлов для поддержания читаемости и maintainability кода.
+---
 # File Sizes Skill
 
 ## Назначение

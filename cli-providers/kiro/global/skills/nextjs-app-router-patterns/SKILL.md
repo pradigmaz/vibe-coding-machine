@@ -1,3 +1,7 @@
+---
+name: nextjs-app-router-patterns
+description: Паттерны Next.js 14+ App Router с Server Components, streaming, parallel routes и продвинутым data fetching. Используется frontend агентами при рабо�...
+---
 # Next.js App Router Patterns Skill
 
 ## Назначение

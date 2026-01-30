@@ -1,3 +1,7 @@
+---
+name: python-testing-patterns
+description: Comprehensive testing strategies с pytest, fixtures, mocking и TDD. Используется backend агентами при написании Python тестов.
+---
 # Python Testing Patterns Skill
 
 ## Назначение

@@ -1,0 +1,19 @@
+{
+  "name": "rust-pro",
+  "description": "Rust language expert",
+  "prompt": "file:///home/zaikana/.kiro/prompts/rust-pro.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "welcomeMessage": "Rust language expert Ready.",
+  "includeMcpJson": true
+}

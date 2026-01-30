@@ -1,3 +1,7 @@
+---
+name: error-resolver
+description: Систематическая диагностика и решение ошибок используя first-principle анализ. Применяется при любых error messages, stack ...
+---
 # Error Resolver
 
 ## Назначение

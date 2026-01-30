@@ -1,0 +1,19 @@
+{
+  "name": "documentation-specialist",
+  "description": "Technical writing for user guides, tutorials, API docs",
+  "prompt": "file:///home/zaikana/.kiro/prompts/documentation-specialist.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-haiku-4.5",
+  "welcomeMessage": "Technical writing for user guides, tutorials, API docs Ready.",
+  "includeMcpJson": true
+}

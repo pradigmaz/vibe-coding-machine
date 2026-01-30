@@ -1,3 +1,7 @@
+---
+name: workflow-orchestration-patterns
+description: Проектирование durable workflows с Temporal для распределенных систем. Покрывает разделение workflow vs activity, saga patterns, state manag...
+---
 # Workflow Orchestration Patterns
 
 ## Назначение

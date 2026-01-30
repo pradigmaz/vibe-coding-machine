@@ -1,3 +1,7 @@
+---
+name: auth-implementation-patterns
+description: Паттерны authentication и authorization включая JWT, OAuth2, session management и RBAC для построения secure, scalable систем контроля доступа. П...
+---
 # Authentication & Authorization Implementation Patterns
 
 ## Назначение

@@ -1,0 +1,19 @@
+{
+  "name": "database-architect",
+  "description": "PostgreSQL schemas and migrations specialist",
+  "prompt": "file:///home/zaikana/.kiro/prompts/database-architect.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-opus-4.5",
+  "welcomeMessage": "PostgreSQL schemas and migrations specialist Ready.",
+  "includeMcpJson": true
+}

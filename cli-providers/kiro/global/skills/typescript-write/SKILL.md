@@ -1,3 +1,7 @@
+---
+name: typescript-write
+description: Написание TypeScript и JavaScript кода следуя best practices и стандартам. Применяется при разработке или рефакторинге TypeScri...
+---
 # TypeScript Development
 
 Написание TypeScript и JavaScript кода следуя best practices и стандартам. Применяется при разработке или рефакторинге TypeScript/JavaScript кода.

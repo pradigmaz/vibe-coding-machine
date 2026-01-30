@@ -1,0 +1,19 @@
+{
+  "name": "context-manager",
+  "description": "Context management across agents and long-running tasks",
+  "prompt": "file:///home/zaikana/.kiro/prompts/context-manager.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-haiku-4.5",
+  "welcomeMessage": "Context management across agents and long-running tasks Ready.",
+  "includeMcpJson": true
+}

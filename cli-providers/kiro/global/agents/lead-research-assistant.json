@@ -1,0 +1,19 @@
+{
+  "name": "lead-research-assistant",
+  "description": "Research and analysis assistant",
+  "prompt": "file:///home/zaikana/.kiro/prompts/lead-research-assistant.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-haiku-4.5",
+  "welcomeMessage": "Research and analysis assistant Ready.",
+  "includeMcpJson": true
+}

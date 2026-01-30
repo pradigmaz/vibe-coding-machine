@@ -1,0 +1,31 @@
+{
+  "name": "general-coder",
+  "description": "Universal developer for CROSS-STACK tasks ONLY. Use when task spans backend + frontend + infra. For specialized work, use domain experts.",
+  "prompt": "file:///home/zaikana/.kiro/prompts/general-coder.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "src/**",
+        "**/*.ts",
+        "**/*.js",
+        "**/*.py",
+        "**/*.go",
+        "**/*.rs"
+      ]
+    }
+  },
+  "welcomeMessage": "Universal developer for CROSS-STACK tasks ONLY. Use when task spans backend + frontend + infra. For specialized work, use domain experts. Ready.",
+  "includeMcpJson": true
+}

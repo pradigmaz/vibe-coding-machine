@@ -1,3 +1,8 @@
+---
+name: analyzing-projects
+description: 
+---
+
 # Analyzing Projects Skill
 
 ## Назначение

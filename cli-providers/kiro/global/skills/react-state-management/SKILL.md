@@ -1,3 +1,7 @@
+---
+name: react-state-management
+description: Modern React state management patterns. Используется frontend агентами для выбора и реализации state management решений.
+---
 # React State Management Skill
 
 ## Назначение

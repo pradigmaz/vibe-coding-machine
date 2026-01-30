@@ -1,0 +1,19 @@
+{
+  "name": "tailwind-css-expert",
+  "description": "Tailwind CSS utility-first design",
+  "prompt": "file:///home/zaikana/.kiro/prompts/tailwind-css-expert.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "welcomeMessage": "Tailwind CSS utility-first design Ready.",
+  "includeMcpJson": true
+}

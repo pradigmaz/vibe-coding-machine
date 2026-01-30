@@ -1,0 +1,19 @@
+{
+  "name": "django-expert",
+  "description": "Django framework specialist",
+  "prompt": "file:///home/zaikana/.kiro/prompts/django-expert.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "welcomeMessage": "Django framework specialist Ready.",
+  "includeMcpJson": true
+}

@@ -1,0 +1,19 @@
+{
+  "name": "legacy-modernizer",
+  "description": "Legacy code refactoring specialist",
+  "prompt": "file:///home/zaikana/.kiro/prompts/legacy-modernizer.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-opus-4.5",
+  "welcomeMessage": "Legacy code refactoring specialist Ready.",
+  "includeMcpJson": true
+}

@@ -1,0 +1,19 @@
+{
+  "name": "api-builder",
+  "description": "tRPC and API integration specialist",
+  "prompt": "file:///home/zaikana/.kiro/prompts/api-builder.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "welcomeMessage": "tRPC and API integration specialist Ready.",
+  "includeMcpJson": true
+}

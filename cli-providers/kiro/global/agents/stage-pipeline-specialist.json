@@ -1,0 +1,31 @@
+{
+  "name": "stage-pipeline-specialist",
+  "description": "Course generation stage phases and pipeline integration",
+  "prompt": "file:///home/zaikana/.kiro/prompts/stage-pipeline-specialist.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "src/**",
+        "**/*.ts",
+        "**/*.js",
+        "**/*.py",
+        "**/*.go",
+        "**/*.rs"
+      ]
+    }
+  },
+  "welcomeMessage": "Course generation stage phases and pipeline integration Ready.",
+  "includeMcpJson": true
+}

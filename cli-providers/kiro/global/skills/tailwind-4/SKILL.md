@@ -1,3 +1,7 @@
+---
+name: tailwind-4
+description: Tailwind CSS 4 patterns и best practices. Используется frontend агентами при работе со стилями.
+---
 # Tailwind 4 Skill
 
 ## Назначение

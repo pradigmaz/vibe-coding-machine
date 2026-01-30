@@ -1,3 +1,7 @@
+---
+name: bats-testing-patterns
+description: Тестирование shell скриптов с использованием Bats (Bash Automated Testing System). Применяется при написании тестов для shell ск...
+---
 # Bats Testing Patterns
 
 ## Назначение

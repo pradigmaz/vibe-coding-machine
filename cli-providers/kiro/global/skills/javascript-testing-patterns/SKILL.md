@@ -1,3 +1,7 @@
+---
+name: javascript-testing-patterns
+description: Testing strategies с Jest, Vitest, Testing Library. Используется frontend и backend агентами для написания unit, integration, e2e тестов.
+---
 # JavaScript Testing Patterns Skill
 
 ## Назначение

@@ -1,3 +1,7 @@
+---
+name: typescript
+description: TypeScript strict patterns и best practices. Используется frontend и backend агентами при работе с TypeScript кодом.
+---
 # TypeScript Skill
 
 ## Назначение

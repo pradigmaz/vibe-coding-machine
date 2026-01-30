@@ -1,3 +1,7 @@
+---
+name: managing-git
+description: Git workflows включая branching, commits и pull requests. Используется всеми агентами при работе с Git.
+---
 # Managing Git Skill
 
 ## Назначение

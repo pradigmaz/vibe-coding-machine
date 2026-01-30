@@ -1,3 +1,7 @@
+---
+name: designing-tests
+description: Testing strategies design и implementation. Используется QA агентами для adding tests, improving coverage, setting up testing infrastructure.
+---
 # Designing Tests Skill
 
 ## Назначение

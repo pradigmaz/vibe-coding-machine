@@ -1,0 +1,31 @@
+{
+  "name": "skill-builder-v2",
+  "description": "Skill creation and management",
+  "prompt": "file:///home/zaikana/.kiro/prompts/skill-builder-v2.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "src/**",
+        "**/*.ts",
+        "**/*.js",
+        "**/*.py",
+        "**/*.go",
+        "**/*.rs"
+      ]
+    }
+  },
+  "welcomeMessage": "Skill creation and management Ready.",
+  "includeMcpJson": true
+}

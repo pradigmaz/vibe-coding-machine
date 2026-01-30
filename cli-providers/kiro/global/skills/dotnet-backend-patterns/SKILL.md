@@ -1,3 +1,7 @@
+---
+name: dotnet-backend-patterns
+description: Паттерны разработки C#/.NET backend для построения надежных API, MCP серверов и enterprise приложений. Покрывает async/await, depe...
+---
 # .NET Backend Development Patterns
 
 ## Назначение

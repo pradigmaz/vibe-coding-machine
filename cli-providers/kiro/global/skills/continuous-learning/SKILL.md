@@ -1,3 +1,7 @@
+---
+name: continuous-learning
+description: Система непрерывного обучения: извлекает знания из сессий и сохраняет как новые skills. Активируется когда:
+---
 # Continuous Learning Skill
 
 ## Назначение

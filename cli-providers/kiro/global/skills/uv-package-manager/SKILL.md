@@ -1,3 +1,7 @@
+---
+name: uv-package-manager
+description: Быстрый Python package manager написанный на Rust. Применяется для управления зависимостями, виртуальными окружениями ...
+---
 # UV Package Manager
 
 Быстрый Python package manager написанный на Rust. Применяется для управления зависимостями, виртуальными окружениями и Python проектами.

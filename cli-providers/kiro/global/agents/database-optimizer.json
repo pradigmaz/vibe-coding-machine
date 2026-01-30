@@ -1,0 +1,19 @@
+{
+  "name": "database-optimizer",
+  "description": "Database design, query optimization, and performance tuning",
+  "prompt": "file:///home/zaikana/.kiro/prompts/database-optimizer.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-opus-4.5",
+  "welcomeMessage": "Database design, query optimization, and performance tuning Ready.",
+  "includeMcpJson": true
+}

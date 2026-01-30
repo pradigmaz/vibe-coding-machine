@@ -1,0 +1,31 @@
+{
+  "name": "vue-nuxt-expert",
+  "description": "Nuxt.js specialist",
+  "prompt": "file:///home/zaikana/.kiro/prompts/vue-nuxt-expert.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "src/**",
+        "**/*.ts",
+        "**/*.js",
+        "**/*.py",
+        "**/*.go",
+        "**/*.rs"
+      ]
+    }
+  },
+  "welcomeMessage": "Nuxt.js specialist Ready.",
+  "includeMcpJson": true
+}

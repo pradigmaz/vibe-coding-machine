@@ -1,3 +1,7 @@
+---
+name: error-handling-patterns
+description: Паттерны обработки ошибок для разных языков включая exceptions, Result types, error propagation и graceful degradation для построения resi...
+---
 # Error Handling Patterns
 
 ## Назначение

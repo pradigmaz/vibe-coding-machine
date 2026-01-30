@@ -12,7 +12,7 @@ description: Политика эскалации задач между аген�
 
 ### 1. Эскалация по сложности
 
-**Sonnet → Opus** когда:
+**gemini-3-flash-preview → gemini-3-pro-preview** когда:
 - Задача требует глубокого анализа (> 5 файлов)
 - Нужна оптимизация производительности
 - Сложный рефакторинг архитектуры
@@ -21,8 +21,8 @@ description: Политика эскалации задач между аген�
 
 ```
 Пример:
-Sonnet: "Эта задача требует анализа 15 файлов и оптимизации алгоритма.
-         Эскалирую в optimization-expert-opus для глубокого анализа."
+gemini-3-flash-preview: "Эта задача требует анализа 15 файлов и оптимизации алгоритма.
+         Эскалирую в backend-architect для глубокого анализа."
 ```
 
 ### 2. Эскалация по специализации
@@ -38,12 +38,12 @@ Backend Agent → backend-architect:
   - Выбор паттернов проектирования
   - Дизайн API
 
-Frontend Agent → frontend-typescript:
+Frontend Agent → typescript-types-specialist:
   - Сложные TypeScript типы
   - Advanced React patterns
   - Performance optimization
 
-Reviewer → code-reviewer-opus:
+Reviewer → code-reviewer:
   - Глубокий code review
   - Архитектурный анализ
   - Security audit
@@ -66,16 +66,16 @@ Orchestrator
 
 | Задача | Агент | Субагент | Модель |
 |--------|-------|----------|--------|
-| Простой CRUD | Backend | - | Sonnet |
-| Сложная архитектура | Backend | backend-architect | Sonnet |
-| Оптимизация алгоритма | Backend | optimization-expert-opus | Opus |
-| Простой компонент | Frontend | - | Sonnet |
-| Advanced TypeScript | Frontend | frontend-typescript | Sonnet |
-| Performance React | Frontend | optimization-expert-opus | Opus |
-| Code review | Reviewer | code-reviewer-opus | Opus |
-| Security audit | Reviewer | vulnerability-hunter-opus | Opus |
-| Рефакторинг | Any | refactoring-specialist | Sonnet |
-| Поиск багов | Debugger | error-detective | Sonnet |
+| Простой CRUD | Backend | - | gemini-3-flash-preview |
+| Сложная архитектура | Backend | backend-architect | gemini-3-flash-preview |
+| Оптимизация алгоритма | Backend | backend-architect | gemini-3-pro-preview |
+| Простой компонент | Frontend | - | gemini-3-flash-preview |
+| Advanced TypeScript | Frontend | typescript-types-specialist | gemini-3-flash-preview |
+| Performance React | Frontend | backend-architect | gemini-3-pro-preview |
+| Code review | Reviewer | code-reviewer | gemini-3-pro-preview |
+| Security audit | Reviewer | security-auditor | gpt-5.2-codex |
+| Рефакторинг | Any | code-structure-refactorer | gemini-3-flash-preview |
+| Поиск багов | Debugger | debugger | gemini-3-flash-preview |
 
 ## Когда НЕ эскалировать
 
@@ -88,7 +88,7 @@ Orchestrator
 ✅ **Эскалируй если**:
 - Задача выходит за рамки твоей экспертизы
 - Нужны специфические инструменты
-- Требуется более мощная модель (Opus)
+- Требуется более мощная модель (gemini-3-pro-preview)
 - Задача критична и нужен expert review
 
 ## Примеры эскалации
@@ -111,16 +111,16 @@ Backend Architect:
 Backend Agent: Реализует спроектированную архитектуру
 ```
 
-### Пример 2: Frontend → Optimization Expert Opus
+### Пример 2: Frontend → Optimization Expert gemini-3-pro-preview
 
 **Задача**: Оптимизировать React приложение с медленным рендерингом
 
 **Решение**:
 ```
 Frontend Agent: "Приложение тормозит, нужна глубокая оптимизация.
-                 Эскалирую в optimization-expert-opus."
+                 Эскалирую в backend-architect."
 
-Optimization Expert Opus:
+Optimization Expert gemini-3-pro-preview:
   1. Профилирует приложение
   2. Находит bottlenecks (N+1 renders, heavy computations)
   3. Применяет оптимизации (React.memo, useMemo, virtualization)
@@ -129,16 +129,16 @@ Optimization Expert Opus:
 Frontend Agent: Применяет рекомендации
 ```
 
-### Пример 3: Reviewer → Vulnerability Hunter Opus
+### Пример 3: Reviewer → Vulnerability Hunter gemini-3-pro-preview
 
 **Задача**: Security audit перед релизом
 
 **Решение**:
 ```
 Reviewer: "Нужен глубокий security audit.
-           Эскалирую в vulnerability-hunter-opus."
+           Эскалирую в security-auditor."
 
-Vulnerability Hunter Opus:
+Vulnerability Hunter gemini-3-pro-preview:
   1. Сканирует на OWASP Top 10
   2. Проверяет SQL injection, XSS, CSRF
   3. Анализирует authentication/authorization

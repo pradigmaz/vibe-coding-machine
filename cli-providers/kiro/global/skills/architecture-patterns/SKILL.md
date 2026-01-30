@@ -1,3 +1,8 @@
+---
+name: architecture-patterns
+description: Реализация проверенных backend архитектурных паттернов включая Clean Architecture, Hexagonal Architecture и Domain-Driven Design для построения maintainable, testable и scalable систем. Применяется...
+---
+
 # Architecture Patterns
 
 ## Назначение

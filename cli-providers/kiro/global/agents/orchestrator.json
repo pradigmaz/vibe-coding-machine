@@ -1,30 +1,74 @@
 {
   "name": "orchestrator",
-  "description": "Task coordinator. ALWAYS asks clarifying questions, creates TODO plan, delegates to agents with FULL context. Never simplifies user requests.",
-  "model": "claude-sonnet-4-5",
-  "prompt": "file://~/.kiro/prompts/orchestrator.md",
-  "includeMcpJson": true,
+  "description": "Master orchestrator. Delegates tasks to specialized subagents.",
+  "prompt": "file:///home/zaikana/.kiro/prompts/tech-lead-orchestrator.md",
   "tools": [
     "read",
-    "grep",
-    "glob",
+    "write",
+    "shell",
+    "code",
     "subagent"
   ],
-  "allowedTools": [
-    "read",
-    "grep",
-    "glob",
-    "subagent"
+  "allowedTools": ["read", "use_subagent"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
   ],
-  "toolsSettings": {},
-  "resources": [],
-  "hooks": {},
+  "model": "claude-sonnet-4.5",
   "keyboardShortcut": "ctrl+o",
-  "welcomeMessage": "\ud83c\udfaf Orchestrator \u0433\u043e\u0442\u043e\u0432. \u0417\u0430\u0434\u0430\u043c \u0443\u0442\u043e\u0447\u043d\u044f\u044e\u0449\u0438\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u044b, \u0441\u043e\u0437\u0434\u0430\u043c \u043f\u043b\u0430\u043d, \u0434\u0435\u043b\u0435\u0433\u0438\u0440\u0443\u044e \u0430\u0433\u0435\u043d\u0442\u0430\u043c.",
-  "mcpServers": {
-    "code-index": {},
-    "Context7": {},
-    "sequential-thinking": {},
-    "memory": {}
-  }
+  "welcomeMessage": "Main coordinator that reads memory, gathers context, creates plans, manages approval, delegates tasks Ready.",
+  "toolsSettings": {
+    "subagent": {
+      "allowedAgents": [
+        "accessibility-specialist",
+        "api-architect",
+        "api-builder",
+        "backend-architect",
+        "backend-developer",
+        "code-archaeologist",
+        "code-reviewer",
+        "code-structure-refactorer",
+        "context-manager",
+        "database-admin",
+        "database-architect",
+        "database-optimizer",
+        "debugger",
+        "devops-engineer",
+        "django-expert",
+        "documentarist",
+        "documentation-specialist",
+        "frontend-developer",
+        "game-developer",
+        "general-coder",
+        "golang-pro",
+        "graphql-architect",
+        "judge-specialist",
+        "langgraph-specialist",
+        "laravel-expert",
+        "lead-research-assistant",
+        "learning-extractor",
+        "legacy-modernizer",
+        "llm-service-specialist",
+        "mobile-developer",
+        "nextjs-specialist",
+        "project-analyzer",
+        "python-pro",
+        "react-expert",
+        "rust-pro",
+        "security-auditor",
+        "skill-builder-v2",
+        "stage-pipeline-specialist",
+        "tailwind-css-expert",
+        "test-automator",
+        "typescript-expert",
+        "typescript-types-specialist",
+        "ui-ux-designer",
+        "utility-builder",
+        "vue-expert",
+        "vue-nuxt-expert"
+      ]
+    }
+  },
+  "includeMcpJson": true
 }

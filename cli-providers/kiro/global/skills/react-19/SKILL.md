@@ -1,3 +1,7 @@
+---
+name: react-19
+description: React 19 паттерны с React Compiler. Используется frontend агентами при работе с React 19 компонентами и хуками.
+---
 # React 19 Skill
 
 ## Назначение

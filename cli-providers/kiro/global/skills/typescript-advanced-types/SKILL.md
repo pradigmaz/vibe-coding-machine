@@ -1,3 +1,7 @@
+---
+name: typescript-advanced-types
+description: Advanced TypeScript type system. Используется всеми агентами для создания type-safe кода с generics, conditional types, mapped types.
+---
 # TypeScript Advanced Types Skill
 
 ## Назначение

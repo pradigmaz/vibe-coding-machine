@@ -1,0 +1,31 @@
+{
+  "name": "learning-extractor",
+  "description": "Extracts reusable patterns from sessions and creates skills. Use after complex tasks or on /retrospective command.",
+  "prompt": "file:///home/zaikana/.kiro/prompts/learning-extractor.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-haiku-4.5",
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "src/**",
+        "**/*.ts",
+        "**/*.js",
+        "**/*.py",
+        "**/*.go",
+        "**/*.rs"
+      ]
+    }
+  },
+  "welcomeMessage": "Extracts reusable patterns from sessions and creates skills. Use after complex tasks or on /retrospective command. Ready.",
+  "includeMcpJson": true
+}

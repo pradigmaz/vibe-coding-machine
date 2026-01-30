@@ -1,0 +1,31 @@
+{
+  "name": "judge-specialist",
+  "description": "LLM Judge systems for automated quality assurance",
+  "prompt": "file:///home/zaikana/.kiro/prompts/judge-specialist.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "src/**",
+        "**/*.ts",
+        "**/*.js",
+        "**/*.py",
+        "**/*.go",
+        "**/*.rs"
+      ]
+    }
+  },
+  "welcomeMessage": "LLM Judge systems for automated quality assurance Ready.",
+  "includeMcpJson": true
+}

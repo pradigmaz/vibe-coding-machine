@@ -1,3 +1,7 @@
+---
+name: saga-orchestration
+description: Реализация saga patterns для распределенных транзакций и cross-aggregate workflows. Применяется при координации multi-step бизне�...
+---
 # Saga Orchestration
 
 ## Назначение

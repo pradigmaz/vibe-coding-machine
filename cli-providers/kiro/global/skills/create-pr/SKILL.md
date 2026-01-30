@@ -1,3 +1,7 @@
+---
+name: create-pr
+description: Создание GitHub pull requests с правильно отформатированными titles. Используется всеми агентами при создании PRs.
+---
 # Create Pull Request Skill
 
 ## Назначение

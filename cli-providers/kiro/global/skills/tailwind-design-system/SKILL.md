@@ -1,3 +1,7 @@
+---
+name: tailwind-design-system
+description: Build design systems с Tailwind CSS. Используется frontend агентами для создания component libraries, design tokens, responsive patterns.
+---
 # Tailwind Design System Skill
 
 ## Назначение

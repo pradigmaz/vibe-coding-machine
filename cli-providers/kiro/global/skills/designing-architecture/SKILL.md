@@ -1,3 +1,7 @@
+---
+name: designing-architecture
+description: Software architecture design и pattern selection. Используется architect агентами для designing systems, choosing patterns, structuring projects.
+---
 # Designing Architecture Skill
 
 ## Назначение

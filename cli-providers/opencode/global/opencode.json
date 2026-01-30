@@ -1,22 +1,1860 @@
 {
-  "model": "opencode/glm-4.7-free",
-  "theme": "opencode",
-  "mcp": {
-    "code-index": {
-      "type": "local",
-      "command": [
-        "uvx",
-        "--python",
-        "3.12",
-        "code-index-mcp"
-      ]
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "opencode-gemini-auth@latest",
+    "@tarquinen/opencode-dcp@latest",
+    "opencode-pty",
+    "@franlol/opencode-md-table-formatter@0.0.3",
+    "micode"
+  ],
+  "model": "openai/gpt-5.1-codex-mini",
+  "agent": {
+    "orchestrator": {
+      "description": "Main coordinator that reads memory, gathers context, creates plans, manages approval, delegates tasks",
+      "mode": "primary",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/orchestration/tech-lead-orchestrator.md}",
+      "permission": {
+        "task": {
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "documentarist": "allow",
+          "backend-architect": "allow",
+          "api-architect": "allow",
+          "backend-developer": "allow",
+          "frontend-developer": "allow",
+          "general-coder": "allow",
+          "code-reviewer": "allow",
+          "security-auditor": "allow",
+          "test-automator": "allow",
+          "debugger": "allow",
+          "devops-engineer": "allow",
+          "ui-ux-designer": "allow",
+          "code-structure-refactorer": "allow",
+          "typescript-types-specialist": "allow",
+          "skill-builder-v2": "allow",
+          "judge-specialist": "allow",
+          "langgraph-specialist": "allow",
+          "llm-service-specialist": "allow",
+          "stage-pipeline-specialist": "allow",
+          "utility-builder": "allow",
+          "react-expert": "allow",
+          "nextjs-specialist": "allow",
+          "vue-expert": "allow",
+          "vue-nuxt-expert": "allow",
+          "typescript-expert": "allow",
+          "graphql-architect": "allow",
+          "database-optimizer": "allow",
+          "django-expert": "allow",
+          "laravel-expert": "allow",
+          "mobile-developer": "allow",
+          "golang-pro": "allow",
+          "rust-pro": "allow",
+          "python-pro": "allow",
+          "accessibility-specialist": "allow",
+          "tailwind-css-expert": "allow",
+          "database-admin": "allow",
+          "database-architect": "allow",
+          "api-builder": "allow",
+          "documentation-specialist": "allow",
+          "context-manager": "allow",
+          "lead-research-assistant": "allow",
+          "game-developer": "allow",
+          "legacy-modernizer": "allow",
+          "learning-extractor": "allow"
+        },
+        "memory_*": "allow",
+        "skill": "allow",
+        "read": "deny",
+        "write": "deny",
+        "edit": "deny",
+        "glob": "deny",
+        "grep": "deny",
+        "bash": "deny"
+      },
+      "tools": {
+        "memory": true
+      }
     },
-    "memory": {
+    "project-analyzer": {
+      "description": "Analyzes project structure and stack. Use for initial project scanning.",
+      "mode": "subagent",
+      "model": "google/gemini-3-flash-preview",
+      "temperature": 0.1,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/orchestration/project-analyzer.md}",
+      "tools": {
+        "read": true,
+        "glob": true,
+        "code-index": true,
+        "bash": true,
+        "grep": true,
+        "sequential-thinking": true,
+        "memory": true
+      },
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "task": {
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      }
+    },
+    "code-archaeologist": {
+      "description": "Context gatherer. Scans project, flags files >300 lines, monoliths, spaghetti code, finds documentation. READ-ONLY analyzer.",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.1,
+      "reasoningEffort": "xhigh",
+      "prompt": "{file:agents/orchestration/code-archaeologist.md}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "list": true,
+        "bash": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "code-index": true,
+        "memory": true
+      },
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "task": {
+          "code-archaeologist": "allow",
+          "project-analyzer": "allow",
+          "*": "deny"
+        }
+      }
+    },
+    "documentarist": {
+      "description": "Memory keeper. Updates .ai/memory/ with project context, architectural decisions, task history. ONLY agent that writes to memory.",
+      "mode": "subagent",
+      "model": "google/gemini-3-flash-preview",
+      "temperature": 0.1,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/content-docs/documentarist.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "task": {
+          "documentarist": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "memory": true
+      }
+    },
+    "backend-architect": {
+      "description": "Backend architecture and system design",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2-codex",
+      "temperature": 0.1,
+      "reasoningEffort": "xhigh",
+      "prompt": "{file:agents/architecture/backend-architect.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "backend-architect": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "memory": true
+      }
+    },
+    "api-architect": {
+      "description": "API design and REST/GraphQL patterns",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2-codex",
+      "temperature": 0.1,
+      "reasoningEffort": "xhigh",
+      "prompt": "{file:agents/architecture/api-architect.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "api-architect": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "memory": true
+      }
+    },
+    "backend-developer": {
+      "description": "Backend development specialist. API, database, server logic. NO frontend/UI work.",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/development/backend/backend-developer.md}",
+      "tools": {
+        "read": true,
+        "edit": true,
+        "write": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "memory": true
+      },
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "backend-developer": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      }
+    },
+    "frontend-developer": {
+      "description": "Frontend development specialist. Generates frontend code in .ai/generated-code/.",
+      "mode": "subagent",
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.1,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/development/frontend/frontend-developer.md}",
+      "tools": {
+        "read": true,
+        "edit": true,
+        "write": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "memory": true
+      },
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "shadcn_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "frontend-developer": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      }
+    },
+    "general-coder": {
+      "description": "Universal developer for CROSS-STACK tasks ONLY. Use when task spans backend + frontend + infra. For specialized work, use domain experts.",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.2,
+      "prompt": "{file:agents/development/general-coder.md}",
+      "tools": {
+        "read": true,
+        "edit": true,
+        "write": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "memory": true
+      },
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "general-coder": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      }
+    },
+    "code-reviewer": {
+      "description": "Code quality reviewer",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.1,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/quality-assurance/code-reviewer.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "code-reviewer": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "memory": true
+      }
+    },
+    "security-auditor": {
+      "description": "Security audit and vulnerability scanning",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2-codex",
+      "temperature": 0.1,
+      "reasoningEffort": "xhigh",
+      "prompt": "{file:agents/quality-assurance/security-auditor.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "security-auditor": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "memory": true
+      },
+      "options": {
+        "reasoningEffort": "xhigh"
+      }
+    },
+    "test-automator": {
+      "description": "Test creation and execution",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/quality-assurance/test-automator.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "test-automator": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "memory": true
+      }
+    },
+    "debugger": {
+      "description": "Bug investigation and fixing",
+      "mode": "subagent",
+      "model": "openai/gpt-5.1-codex-max",
+      "temperature": 0.1,
+      "reasoningEffort": "xhigh",
+      "prompt": "{file:agents/quality-assurance/debugger.md}",
+      "tools": {
+        "read": true,
+        "edit": true,
+        "bash": true,
+        "write": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "memory": true
+      },
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "puppeteer_*": "allow",
+        "ref_*": "allow",
+        "task": {
+          "debugger": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "options": {
+        "reasoningEffort": "xhigh"
+      }
+    },
+    "devops-engineer": {
+      "description": "DevOps and infrastructure",
+      "mode": "subagent",
+      "model": "openai/gpt-5.1-codex-max",
+      "temperature": 0.4,
+      "reasoningEffort": "xhigh",
+      "prompt": "{file:agents/devops-infra/devops-engineer.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "task": {
+          "devops-engineer": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        },
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "shadcn_*": "allow",
+        "puppeteer_*": "allow",
+        "refactor-mcp_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow"
+      },
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "memory": true
+      }
+    },
+    "ui-ux-designer": {
+      "description": "UI/UX design and frontend patterns. Uses shadcn MCP.",
+      "mode": "subagent",
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.5,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/design/ui-ux-designer.md}",
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "memory": true
+      },
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "shadcn_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "ui-ux-designer": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      }
+    },
+    "code-structure-refactorer": {
+      "description": "Code structure refactoring and modularization",
+      "mode": "subagent",
+      "model": "openai/gpt-5.1-codex-max",
+      "temperature": 0.1,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/development/workers/code-structure-refactorer.md}",
+      "tools": {
+        "read": true,
+        "edit": true,
+        "write": true,
+        "bash": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "memory": true
+      },
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "refactor-mcp_*": "allow",
+        "ref_*": "allow",
+        "task": {
+          "code-structure-refactorer": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "options": {
+        "reasoningEffort": "xhigh"
+      }
+    },
+    "typescript-types-specialist": {
+      "description": "TypeScript types and advanced typing",
+      "mode": "subagent",
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.1,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/development/workers/typescript-types-specialist.md}",
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "memory": true
+      },
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "task": {
+          "typescript-types-specialist": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        },
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "shadcn_*": "allow",
+        "puppeteer_*": "allow",
+        "refactor-mcp_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow"
+      }
+    },
+    "skill-builder-v2": {
+      "description": "Skill creation and management",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/development/workers/skill-builder-v2.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "task": {
+          "skill-builder-v2": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        },
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "shadcn_*": "allow",
+        "puppeteer_*": "allow",
+        "refactor-mcp_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow"
+      },
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "memory": true
+      }
+    },
+    "judge-specialist": {
+      "description": "LLM Judge systems for automated quality assurance",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/development/workers/judge-specialist.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "task": {
+          "judge-specialist": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        },
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "shadcn_*": "allow",
+        "puppeteer_*": "allow",
+        "refactor-mcp_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow"
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "memory": true
+      }
+    },
+    "langgraph-specialist": {
+      "description": "LangGraph StateGraph workflows and state machine orchestration",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/development/workers/langgraph-specialist.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "task": {
+          "langgraph-specialist": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        },
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "shadcn_*": "allow",
+        "puppeteer_*": "allow",
+        "refactor-mcp_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow"
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "memory": true
+      }
+    },
+    "llm-service-specialist": {
+      "description": "LLM service layer, token estimation, OpenAI SDK integration",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/development/workers/llm-service-specialist.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "task": {
+          "llm-service-specialist": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        },
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "shadcn_*": "allow",
+        "puppeteer_*": "allow",
+        "refactor-mcp_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow"
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "memory": true
+      }
+    },
+    "stage-pipeline-specialist": {
+      "description": "Course generation stage phases and pipeline integration",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/development/workers/stage-pipeline-specialist.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "task": {
+          "stage-pipeline-specialist": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        },
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "shadcn_*": "allow",
+        "puppeteer_*": "allow",
+        "refactor-mcp_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow"
+      },
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "memory": true
+      }
+    },
+    "utility-builder": {
+      "description": "Utility services: JSON repair, validation, XSS protection, vector search",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/development/workers/utility-builder.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "task": {
+          "utility-builder": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        },
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "shadcn_*": "allow",
+        "puppeteer_*": "allow",
+        "refactor-mcp_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow"
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "memory": true
+      }
+    },
+    "react-expert": {
+      "description": "React ecosystem specialist",
+      "mode": "subagent",
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.1,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/development/frontend/react/react-expert.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "shadcn_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "react-expert": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "memory": true
+      }
+    },
+    "nextjs-specialist": {
+      "description": "Next.js specialist",
+      "mode": "subagent",
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.1,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/development/frontend/react/nextjs-specialist.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "shadcn_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "nextjs-specialist": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "memory": true
+      }
+    },
+    "vue-expert": {
+      "description": "Vue.js ecosystem specialist",
+      "mode": "subagent",
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.1,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/development/frontend/vue/vue-expert.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "shadcn_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "vue-expert": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "memory": true
+      }
+    },
+    "vue-nuxt-expert": {
+      "description": "Nuxt.js specialist",
+      "mode": "subagent",
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.1,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/development/frontend/vue/vue-nuxt-expert.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "shadcn_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "vue-nuxt-expert": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "memory": true
+      }
+    },
+    "typescript-expert": {
+      "description": "TypeScript language expert",
+      "mode": "subagent",
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.1,
+      "reasoningEffort": "high",
+      "prompt": "{file:agents/language-experts/typescript-expert.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "task": {
+          "typescript-expert": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        },
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "shadcn_*": "allow",
+        "puppeteer_*": "allow",
+        "refactor-mcp_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow"
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "grep": true,
+        "glob": true,
+        "skill": true,
+        "shadcn": true,
+        "memory": true
+      }
+    },
+    "graphql-architect": {
+      "description": "GraphQL schemas, resolvers, and servers",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.1,
+      "prompt": "{file:agents/architecture/graphql-architect.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "graphql-architect": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      }
+    },
+    "database-optimizer": {
+      "description": "Database design, query optimization, and performance tuning",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2-codex",
+      "temperature": 0.1,
+      "prompt": "{file:agents/architecture/database-optimizer.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "pg-aiguide_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "database-optimizer": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      },
+      "options": {
+        "reasoningEffort": "xhigh"
+      }
+    },
+    "django-expert": {
+      "description": "Django framework specialist",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/development/backend/django/django-expert.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "django-expert": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      }
+    },
+    "laravel-expert": {
+      "description": "Laravel framework specialist",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/development/backend/laravel/laravel-expert.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "laravel-expert": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      }
+    },
+    "mobile-developer": {
+      "description": "React Native and Flutter mobile development",
+      "mode": "subagent",
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.1,
+      "prompt": "{file:agents/development/mobile/mobile-developer.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "shadcn_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "mobile-developer": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true
+      }
+    },
+    "golang-pro": {
+      "description": "Go language expert",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/language-experts/golang-pro.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "golang-pro": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      }
+    },
+    "rust-pro": {
+      "description": "Rust language expert",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/language-experts/rust-pro.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "rust-pro": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      }
+    },
+    "python-pro": {
+      "description": "Python language expert",
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.1,
+      "prompt": "{file:agents/language-experts/python-pro.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "pg-aiguide_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "python-pro": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      }
+    },
+    "accessibility-specialist": {
+      "description": "WCAG standards and accessibility auditing",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.1,
+      "prompt": "{file:agents/quality-assurance/accessibility-specialist.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "accessibility-specialist": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      }
+    },
+    "tailwind-css-expert": {
+      "description": "Tailwind CSS utility-first design",
+      "mode": "subagent",
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.1,
+      "prompt": "{file:agents/design/tailwind-css-expert.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "context7_*": "allow",
+        "shadcn_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "tailwind-css-expert": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true,
+        "shadcn": true
+      }
+    },
+    "database-admin": {
+      "description": "Database operations, backups, replication, monitoring",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.1,
+      "prompt": "{file:agents/devops-infra/database-admin.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "pg-aiguide_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "database-admin": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      }
+    },
+    "database-architect": {
+      "description": "PostgreSQL schemas and migrations specialist",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.1,
+      "prompt": "{file:agents/database/workers/database-architect.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "pg-aiguide_*": "allow",
+        "code-index": "allow",
+        "ref_*": "allow",
+        "task": {
+          "database-architect": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      }
+    },
+    "api-builder": {
+      "description": "tRPC and API integration specialist",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.1,
+      "prompt": "{file:agents/database/workers/api-builder.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "task": {
+          "api-builder": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      }
+    },
+    "documentation-specialist": {
+      "description": "Technical writing for user guides, tutorials, API docs",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.1,
+      "prompt": "{file:agents/content-docs/documentation-specialist.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "task": {
+          "documentation-specialist": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      }
+    },
+    "context-manager": {
+      "description": "Context management across agents and long-running tasks",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.1,
+      "prompt": "{file:agents/orchestration/context-manager.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "task": {
+          "context-manager": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "memory": true
+      }
+    },
+    "lead-research-assistant": {
+      "description": "Research and analysis assistant",
+      "mode": "subagent",
+      "model": "opencode/grok-code",
+      "temperature": 0.2,
+      "prompt": "{file:agents/business/workers/lead-research-assistant.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "task": {
+          "lead-research-assistant": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true
+      }
+    },
+    "game-developer": {
+      "description": "Unity/Unreal game development",
+      "mode": "subagent",
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.2,
+      "prompt": "{file:agents/specialized-tools/game-developer.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "task": {
+          "game-developer": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      }
+    },
+    "legacy-modernizer": {
+      "description": "Legacy code refactoring specialist",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2-codex",
+      "temperature": 0.1,
+      "prompt": "{file:agents/specialized-tools/legacy-modernizer.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "code-index": "allow",
+        "refactor-mcp_*": "allow",
+        "ref_*": "allow",
+        "task": {
+          "legacy-modernizer": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "sequential-thinking": true,
+        "context7": true,
+        "code-index": true
+      },
+      "options": {
+        "reasoningEffort": "xhigh"
+      }
+    },
+    "learning-extractor": {
+      "description": "Extracts reusable patterns from sessions and creates skills. Use after complex tasks or on /retrospective command.",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.1,
+      "prompt": "{file:agents/meta/learning-extractor.md}",
+      "permission": {
+        "read": "allow",
+        "write": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "skill": "allow",
+        "sequential-thinking": "allow",
+        "memory_*": "allow",
+        "task": {
+          "learning-extractor": "deny",
+          "project-analyzer": "allow",
+          "code-archaeologist": "allow",
+          "*": "deny"
+        }
+      },
+      "tools": {
+        "read": true,
+        "write": true,
+        "glob": true,
+        "grep": true,
+        "skill": true,
+        "sequential-thinking": true,
+        "memory": true
+      }
+    }
+  },
+  "command": {
+    "analyze": {
+      "description": "Analyze codebase and create plan",
+      "agent": "orchestrator",
+      "template": "Analyze the codebase and create a plan for: $ARGUMENTS"
+    },
+    "review": {
+      "description": "Run code review",
+      "agent": "code-reviewer",
+      "template": "Review the code for: $ARGUMENTS"
+    },
+    "audit": {
+      "description": "Run security audit",
+      "agent": "security-auditor",
+      "template": "Perform security audit for: $ARGUMENTS"
+    },
+    "refactor": {
+      "description": "Refactor code structure",
+      "agent": "code-structure-refactorer",
+      "template": "Refactor the code: $ARGUMENTS"
+    },
+    "test": {
+      "description": "Create and run tests",
+      "agent": "test-automator",
+      "template": "Create and run tests for: $ARGUMENTS"
+    },
+    "document": {
+      "description": "Update project memory and documentation",
+      "agent": "documentarist",
+      "template": "Update memory with: $ARGUMENTS"
+    },
+    "retrospective": {
+      "description": "Extract learned patterns from session into reusable skills",
+      "agent": "learning-extractor",
+      "template": "Analyze the session and extract reusable patterns into skills. Focus on: $ARGUMENTS"
+    },
+    "verify": {
+      "description": "Run comprehensive verification on current codebase",
+      "agent": "test-automator",
+      "template": "Run verification loop. Mode: $ARGUMENTS (quick|full|pre-commit|pre-pr). Load skill(verification-loop) and execute all phases."
+    },
+    "checkpoint": {
+      "description": "Create or verify a checkpoint in workflow",
+      "agent": "documentarist",
+      "template": "Checkpoint operation: $ARGUMENTS (create <name>|verify <name>|list). Save state to .ai/checkpoints.log"
+    }
+  },
+  "mcp": {
+    "context7": {
       "type": "local",
       "command": [
         "npx",
         "-y",
-        "@modelcontextprotocol/server-memory"
+        "@upstash/context7-mcp",
+        "--api-key",
+        "ctx7sk-d53098ea-ba17-425a-b3d3-90d0eda20757"
       ]
     },
     "sequential-thinking": {
@@ -27,33 +1865,21 @@
         "@modelcontextprotocol/server-sequential-thinking"
       ]
     },
-    "Context7": {
+    "memory": {
       "type": "local",
       "command": [
-        "npx",
-        "-y",
-        "@upstash/context7-mcp",
-        "--api-key",
-        "${CONTEXT7_API_KEY}"
+        "bash",
+        "-lc",
+        "NPM_CONFIG_PROGRESS=false NPM_CONFIG_LOGLEVEL=error NPM_CONFIG_UPDATE_NOTIFIER=false NPM_CONFIG_FUND=false NPM_CONFIG_AUDIT=false NODE_OPTIONS=--no-warnings npx -y @modelcontextprotocol/server-memory 2>/home/zaikana/.config/opencode/mcp-memory.err | python3 -u -c \"import sys;\nfor line in sys.stdin:\n    if line.strip() == 'Knowledge Graph MCP Server running on stdio':\n        continue\n    sys.stdout.write(line)\""
       ]
     },
-    "Ref": {
+    "code-index": {
       "type": "local",
       "command": [
-        "npx",
-        "-y",
-        "@upstash/ref-mcp"
-      ],
-      "environment": {
-        "REF_API_KEY": "${REF_API_KEY}"
-      }
-    },
-    "pg-aiguide": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@tigerdata/pg-aiguide-mcp"
+        "uvx",
+        "--python",
+        "python3.12",
+        "code-index-mcp"
       ]
     },
     "refactor-mcp": {
@@ -61,250 +1887,150 @@
       "command": [
         "npx",
         "-y",
-        "refactor-mcp"
+        "@myuon/refactor-mcp"
+      ]
+    },
+    "puppeteer": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@merajmehrabi/puppeteer-mcp-server"
       ]
     },
     "shadcn": {
       "type": "local",
       "command": [
         "npx",
-        "-y",
         "shadcn@latest",
         "mcp"
       ]
+    },
+    "ref": {
+      "type": "remote",
+      "url": "https://api.ref.tools/mcp",
+      "headers": {
+        "x-ref-api-key": "ref-1a3d13f091161ab1232d"
+      }
+    },
+    "pg-aiguide": {
+      "type": "remote",
+      "url": "https://mcp.tigerdata.com/docs"
     }
   },
-  "agent": {
-    "orchestrator": {
-      "description": "Task coordinator. Asks questions, creates plan, delegates to agents.",
-      "model": "opencode/minimax-m2.1-free",
-      "prompt": "{file:./agents/orchestrator.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "skill": true,
-        "task": true
-      },
-      "permissions": {
-        "task": {
-          "*": "allow"
+  "permission": {
+    "*": "ask",
+    "bash": {
+      "*": "ask",
+      "git status *": "allow",
+      "git diff *": "allow",
+      "grep *": "allow",
+      "code-index *": "allow"
+    },
+    "edit": {
+      "*": "deny",
+      "src/**": "allow",
+      "**/*.py": "allow",
+      "**/*.ts": "allow",
+      "**/*.js": "allow"
+    },
+    "write": {
+      "*": "deny",
+      "src/**": "allow",
+      "**/*.py": "allow",
+      "**/*.ts": "allow",
+      "**/*.js": "allow"
+    },
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny"
+    },
+    "task": {
+      "*": "allow"
+    },
+    "skill": {
+      "*": "allow"
+    },
+    "sequential-thinking": "allow",
+    "memory_*": "allow",
+    "context7_*": "allow",
+    "pg-aiguide_*": "allow",
+    "shadcn_*": "allow",
+    "puppeteer_*": "allow",
+    "refactor-mcp_*": "allow",
+    "code-index": "allow",
+    "ref_*": "allow"
+  },
+  "instructions": [
+    "AGENTS.md"
+  ],
+  "provider": {
+    "google": {
+      "models": {
+        "gemini-3-flash-preview": {
+          "options": {
+            "thinkingConfig": {
+              "thinkingLevel": "high",
+              "includeThoughts": false
+            }
+          }
+        },
+        "gemini-3-pro-preview": {
+          "options": {
+            "thinkingConfig": {
+              "thinkingLevel": "high",
+              "includeThoughts": false
+            }
+          }
         }
       }
     },
-    "backend": {
-      "description": "Backend developer. Implements API, services, CRUD, models.",
-      "model": "opencode/glm-4.7-free",
-      "prompt": "{file:./agents/backend.md}",
-      "tools": {
-        "write": true,
-        "edit": true,
-        "bash": true,
-        "skill": true
-      }
-    },
-    "frontend": {
-      "description": "Frontend specialist. Builds UI with Next.js, React, Tailwind.",
-      "model": "opencode/glm-4.7-free",
-      "prompt": "{file:./agents/frontend.md}",
-      "tools": {
-        "write": true,
-        "edit": true,
-        "bash": true,
-        "skill": true
-      }
-    },
-    "coder": {
-      "description": "General purpose coder. Implements features from specs.",
-      "model": "opencode/glm-4.7-free",
-      "prompt": "{file:./agents/coder.md}",
-      "tools": {
-        "write": true,
-        "edit": true,
-        "bash": true,
-        "skill": true
-      }
-    },
-    "reviewer": {
-      "description": "Code reviewer. Analyzes for security, performance, style. READ-ONLY.",
-      "model": "opencode/minimax-m2.1-free",
-      "prompt": "{file:./agents/reviewer.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "read": true,
-        "glob": true,
-        "grep": true,
-        "skill": true
-      }
-    },
-    "debugger": {
-      "description": "Debugging specialist. Analyzes errors, suggests fixes.",
-      "model": "opencode/glm-4.7-free",
-      "prompt": "{file:./agents/debugger.md}",
-      "tools": {
-        "write": true,
-        "edit": true,
-        "bash": true,
-        "skill": true
-      }
-    },
-    "architect": {
-      "description": "System architect. Designs architecture, reviews specs.",
-      "model": "opencode/minimax-m2.1-free",
-      "prompt": "{file:./agents/architect.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "read": true,
-        "skill": true
-      }
-    },
-    "project-analyzer": {
-      "description": "Analyzes existing project before adding features. Use: @project-analyzer",
-      "mode": "subagent",
-      "model": "opencode/glm-4.7-free",
-      "prompt": "{file:./agents/project-analyzer.md}",
-      "tools": {
-        "read": true,
-        "grep": true,
-        "glob": true,
-        "write": true,
-        "edit": false,
-        "bash": false,
-        "skill": true
-      }
-    },
-    "implementation-planner": {
-      "description": "Creates detailed implementation plan with checkpoints. Use: @implementation-planner",
-      "mode": "subagent",
-      "model": "opencode/minimax-m2.1-free",
-      "prompt": "{file:./agents/implementation-planner.md}",
-      "tools": {
-        "read": true,
-        "grep": true,
-        "write": true,
-        "edit": false,
-        "bash": false,
-        "skill": true
-      }
-    },
-    "self-reviewer": {
-      "description": "Reviews generated draft code for errors. Use: @self-reviewer",
-      "mode": "subagent",
-      "model": "opencode/minimax-m2.1-free",
-      "prompt": "{file:./agents/self-reviewer.md}",
-      "tools": {
-        "read": true,
-        "grep": true,
-        "write": true,
-        "edit": false,
-        "bash": true,
-        "skill": true
-      },
-      "permissions": {
-        "bash": {
-          "*": "deny",
-          "npm run lint": "allow",
-          "npm run type-check": "allow",
-          "pytest --collect-only": "allow",
-          "go vet": "allow"
+    "openai": {
+      "models": {
+        "gpt-5.2": {
+          "options": {
+            "temperature": 0.3,
+            "reasoningEffort": "xhigh"
+          }
+        },
+        "gpt-5.2-codex": {
+          "options": {
+            "temperature": 0.4,
+            "reasoningEffort": "xhigh"
+          }
         }
       }
     },
-    "db-architect": {
-      "description": "Database expert (PostgreSQL/MySQL). Schema design, indexes, SQL optimization. Use: @db-architect",
-      "mode": "subagent",
-      "model": "opencode/glm-4.7-free",
-      "tools": {
-        "read": true,
-        "write": true,
-        "grep": true,
-        "glob": true,
-        "bash": true,
-        "skill": true
-      },
-      "permissions": {
-        "bash": {
-          "*": "deny",
-          "psql": "allow",
-          "sqlite3": "allow",
-          "prisma": "allow"
+    "zai-coding-plan": {
+      "models": {
+        "glm-4.7": {
+          "options": {
+            "temperature": 0.4,
+            "max_tokens": 8000
+          }
+        },
+        "glm-4.7-flash": {
+          "options": {
+            "temperature": 0.1,
+            "max_tokens": 4000
+          }
         }
       }
     },
-    "security-auditor": {
-      "description": "Security expert. Audits code for vulnerabilities (OWASP), checks secrets. Use: @security-auditor",
-      "mode": "subagent",
-      "model": "opencode/minimax-m2.1-free",
-      "tools": {
-        "read": true,
-        "grep": true,
-        "glob": true,
-        "bash": true,
-        "skill": true
-      },
-      "permissions": {
-        "bash": {
-          "*": "deny",
-          "npm audit": "allow",
-          "pip-audit": "allow",
-          "trivy": "allow"
-        }
-      }
-    },
-    "test-engineer": {
-      "description": "QA automation. Writes unit/integration tests, improves coverage. Use: @test-engineer",
-      "mode": "subagent",
-      "model": "opencode/glm-4.7-free",
-      "tools": {
-        "read": true,
-        "write": true,
-        "grep": true,
-        "glob": true,
-        "bash": true,
-        "skill": true
-      },
-      "permissions": {
-        "bash": {
-          "*": "deny",
-          "npm test": "allow",
-          "jest": "allow",
-          "pytest": "allow",
-          "vitest": "allow"
-        }
-      }
-    },
-    "refactoring-specialist": {
-      "description": "Code refactoring expert. Reduces complexity, applies design patterns. Use: @refactoring-specialist",
-      "mode": "subagent",
-      "model": "opencode/glm-4.7-free",
-      "tools": {
-        "read": true,
-        "write": true,
-        "grep": true,
-        "glob": true,
-        "skill": true
-      }
-    },
-    "performance-profiler": {
-      "description": "Performance analysis. Identifies bottlenecks, optimization strategies. Use: @performance-profiler",
-      "mode": "subagent",
-      "model": "opencode/glm-4.7-free",
-      "tools": {
-        "read": true,
-        "grep": true,
-        "glob": true,
-        "bash": true,
-        "skill": true
-      },
-      "permissions": {
-        "bash": {
-          "*": "deny",
-          "node --prof": "allow",
-          "py-spy": "allow"
+    "opencode": {
+      "models": {
+        "minimax-m2.1-free": {
+          "options": {
+            "temperature": 0.1,
+            "max_tokens": 8000
+          }
+        },
+        "grok-code": {
+          "options": {
+            "temperature": 0.2,
+            "max_tokens": 8000
+          }
         }
       }
     }

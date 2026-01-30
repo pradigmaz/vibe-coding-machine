@@ -1,0 +1,19 @@
+{
+  "name": "database-admin",
+  "description": "Database operations, backups, replication, monitoring",
+  "prompt": "file:///home/zaikana/.kiro/prompts/database-admin.md",
+  "tools": [
+    "read",
+    "write",
+    "shell"
+  ],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://README.md",
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "model": "claude-sonnet-4.5",
+  "welcomeMessage": "Database operations, backups, replication, monitoring Ready.",
+  "includeMcpJson": true
+}

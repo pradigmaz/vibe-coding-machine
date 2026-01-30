@@ -37,7 +37,11 @@
     "code-index": {
       "command": "uvx",
       "args": [
-        "code-index-mcp"
+        "--python",
+        "python3.12",
+        "code-index-mcp",
+        "--project-path",
+        "/media/zaikana/my_hdd1/универ/platforma_maga"
       ],
       "disabled": false,
       "autoApprove": [
@@ -73,21 +77,13 @@
       "disabled": false,
       "autoApprove": []
     },
-    "Ref": {
-      "url": "https://api.ref.tools/mcp",
-      "headers": {
-        "x-ref-api-key": "ref-1a3d13f091161ab1232d"
-      },
-      "disabled": false,
-      "autoApprove": [
-        "ref_search_documentation",
-        "ref_read_url"
-      ]
-    },
     "pg-aiguide": {
       "url": "https://mcp.tigerdata.com/docs",
       "disabled": false,
       "autoApprove": []
     }
+  },
+  "powers": {
+    "mcpServers": {}
   }
 }
