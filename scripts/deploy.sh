@@ -93,6 +93,12 @@ deploy_kiro() {
         fi
     done
     
+    # Фиксим захардкоженные пути в JSON агентах
+    log_step "Патчим пути в агентах..."
+    find "$dest/agents" -name "*.json" -type f -exec \
+        sed -i "s|file:///home/zaikana/.kiro/|file://$dest/|g" {} \;
+    log_info "  Пути обновлены на $dest"
+    
     # Копируем AGENTS.md
     cp -f "$src/AGENTS.md" "$dest/" 2>/dev/null || true
     
