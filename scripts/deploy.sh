@@ -59,6 +59,10 @@ deploy_kiro() {
     local dest="$HOME/.kiro"
     
     mkdir -p "$dest/settings"
+    mkdir -p "$dest/prompts"
+    mkdir -p "$dest/agents"
+    mkdir -p "$dest/skills"
+    mkdir -p "$dest/docs"
     
     # Копируем settings
     if [ -d "$src/settings" ]; then
@@ -71,7 +75,7 @@ deploy_kiro() {
         if [ -d "$src/$dir" ]; then
             rm -rf "$dest/$dir"
             cp -r "$src/$dir" "$dest/"
-            log_info "  $dir/"
+            log_info "  $dir/ ($(find "$src/$dir" -type f | wc -l) файлов)"
         fi
     done
     
@@ -96,9 +100,10 @@ count_files() {
     esac
     
     if [ -d "$base_dir" ]; then
-        local agents=$(find "$base_dir/agents" -type f 2>/dev/null | wc -l)
+        local agents=$(find "$base_dir/agents" -type f -name "*.json" 2>/dev/null | wc -l)
+        local prompts=$(find "$base_dir/prompts" -type f -name "*.md" 2>/dev/null | wc -l)
         local skills=$(find "$base_dir/skills" -type d -mindepth 1 -maxdepth 1 2>/dev/null | wc -l)
-        echo "  Агенты: $agents, Навыки: $skills"
+        echo "  Агенты: $agents, Промпты: $prompts, Навыки: $skills"
     fi
 }
 
