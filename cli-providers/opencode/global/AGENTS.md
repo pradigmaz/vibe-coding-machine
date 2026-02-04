@@ -1,4 +1,4 @@
-# Kiro Agent System
+# OPENCODE Agent System
 
 Мультиагентная система: оркестратор координирует, агенты исполняют.
 
